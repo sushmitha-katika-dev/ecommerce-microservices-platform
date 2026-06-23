@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS ecommerce_user_db;
+CREATE DATABASE IF NOT EXISTS ecommerce_product_db;
+CREATE DATABASE IF NOT EXISTS ecommerce_cart_db;
+CREATE DATABASE IF NOT EXISTS ecommerce_order_db;
+CREATE DATABASE IF NOT EXISTS ecommerce_payment_db;
+CREATE DATABASE IF NOT EXISTS ecommerce_notification_db;
+
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
