@@ -1,6 +1,7 @@
 package com.ecommerce.cart_service.service.impl;
 
 import com.ecommerce.cart_service.entity.*;
+import com.ecommerce.cart_service.enums.CartStatus;
 import com.ecommerce.cart_service.exception.*;
 import com.ecommerce.cart_service.repository.*;
 import com.ecommerce.cart_service.service.*;

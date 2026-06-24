@@ -1,29 +1,20 @@
 package com.ecommerce.cart_service.entity;
 
-import com.ecommerce.cart_service.controller.*;
-import com.ecommerce.cart_service.entity.*;
-import com.ecommerce.cart_service.exception.*;
-import com.ecommerce.cart_service.repository.*;
-import com.ecommerce.cart_service.service.*;
-import com.ecommerce.cart_service.dto.request.*;
-import com.ecommerce.cart_service.dto.response.*;
-import com.ecommerce.cart_service.kafka.event.*;
-import com.ecommerce.cart_service.kafka.producer.*;
-import com.ecommerce.cart_service.service.impl.*;
-
-
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.ecommerce.cart_service.enums.CartStatus;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "carts")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Builder
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -38,7 +29,6 @@ public class Cart {
     @Column(nullable = false)
     private CartStatus status;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<CartItem> items = new ArrayList<>();
@@ -52,8 +42,6 @@ public class Cart {
     @Version
     private Integer version;
 
-
-
     public void addItem(CartItem item) {
         items.add(item);
         item.setCart(this);
@@ -64,4 +52,3 @@ public class Cart {
         item.setCart(null);
     }
 }
-

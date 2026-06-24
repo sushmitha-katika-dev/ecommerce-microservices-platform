@@ -1,33 +1,18 @@
 package com.ecommerce.notification_service.entity;
 
-import com.ecommerce.notification_service.controller.*;
-import com.ecommerce.notification_service.entity.*;
-import com.ecommerce.notification_service.repository.*;
-import com.ecommerce.notification_service.kafka.consumer.*;
-import com.ecommerce.notification_service.kafka.event.*;
-import com.ecommerce.notification_service.service.impl.*;
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-
+import lombok.Data;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notification_logs")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
 public class NotificationLog {
 
@@ -48,4 +33,3 @@ public class NotificationLog {
         createdAt = LocalDateTime.now();
     }
 }
-

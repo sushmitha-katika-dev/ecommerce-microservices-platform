@@ -1,16 +1,5 @@
 package com.ecommerce.user_service.entity;
 
-import com.ecommerce.user_service.config.*;
-import com.ecommerce.user_service.controller.*;
-import com.ecommerce.user_service.entity.*;
-import com.ecommerce.user_service.repository.*;
-import com.ecommerce.user_service.security.*;
-import com.ecommerce.user_service.service.*;
-import com.ecommerce.user_service.dto.request.*;
-import com.ecommerce.user_service.dto.response.*;
-import com.ecommerce.user_service.service.impl.*;
-
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,8 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -51,11 +39,7 @@ public class User {
     private String status;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
@@ -70,4 +54,3 @@ public class User {
     @Version
     private Integer version;
 }
-

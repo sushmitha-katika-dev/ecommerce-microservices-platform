@@ -1,17 +1,5 @@
 package com.ecommerce.product_service.entity;
 
-import com.ecommerce.product_service.controller.*;
-import com.ecommerce.product_service.entity.*;
-import com.ecommerce.product_service.exception.*;
-import com.ecommerce.product_service.repository.*;
-import com.ecommerce.product_service.dto.request.*;
-import com.ecommerce.product_service.dto.response.*;
-import com.ecommerce.product_service.kafka.consumer.*;
-import com.ecommerce.product_service.kafka.event.*;
-import com.ecommerce.product_service.kafka.producer.*;
-import com.ecommerce.product_service.service.impl.*;
-
-
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -22,7 +10,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "products")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -57,4 +49,3 @@ public class Product {
     @Version
     private Integer version;
 }
-

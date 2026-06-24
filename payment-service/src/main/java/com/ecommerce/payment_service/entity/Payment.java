@@ -1,15 +1,6 @@
 package com.ecommerce.payment_service.entity;
 
-import com.ecommerce.payment_service.controller.*;
-import com.ecommerce.payment_service.entity.*;
-import com.ecommerce.payment_service.repository.*;
-import com.ecommerce.payment_service.service.*;
-import com.ecommerce.payment_service.dto.response.*;
-import com.ecommerce.payment_service.kafka.consumer.*;
-import com.ecommerce.payment_service.kafka.event.*;
-import com.ecommerce.payment_service.kafka.producer.*;
-import com.ecommerce.payment_service.service.impl.*;
-
+import com.ecommerce.payment_service.enums.PaymentStatus;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,8 +13,7 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -31,8 +21,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "payments")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -69,4 +58,3 @@ public class Payment {
         updatedAt = LocalDateTime.now();
     }
 }
-

@@ -1,16 +1,9 @@
 package com.ecommerce.product_service.service.impl;
 
-import com.ecommerce.product_service.controller.*;
 import com.ecommerce.product_service.entity.*;
 import com.ecommerce.product_service.exception.*;
 import com.ecommerce.product_service.repository.*;
 import com.ecommerce.product_service.dto.request.*;
-import com.ecommerce.product_service.dto.response.*;
-import com.ecommerce.product_service.kafka.consumer.*;
-import com.ecommerce.product_service.kafka.event.*;
-import com.ecommerce.product_service.kafka.producer.*;
-import com.ecommerce.product_service.service.impl.*;
-
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,8 +25,9 @@ public class InventoryService {
     @Transactional
     public void updateInventory(InventoryUpdateRequest request) {
         Inventory inventory = inventoryRepository.findByProductId(request.getProductId())
-                .orElseThrow(() -> new ResourceNotFoundException("Inventory not found for product: " + request.getProductId()));
-        
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Inventory not found for product: " + request.getProductId()));
+
         inventory.setQuantity(inventory.getQuantity() + request.getQuantity());
         inventoryRepository.save(inventory);
     }
@@ -42,11 +36,11 @@ public class InventoryService {
     public void reserveInventory(String productId, int quantity) {
         Inventory inventory = inventoryRepository.findByProductId(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventory not found for product: " + productId));
-        
+
         if (inventory.getAvailableQuantity() < quantity) {
             throw new IllegalArgumentException("Insufficient inventory");
         }
-        
+
         inventory.setReservedQuantity(inventory.getReservedQuantity() + quantity);
         inventoryRepository.save(inventory);
     }
@@ -55,10 +49,10 @@ public class InventoryService {
     public void decrementInventory(String productId, int quantity) {
         Inventory inventory = inventoryRepository.findByProductId(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Inventory not found for product: " + productId));
-        
-        // Decrement actual quantity. If it was reserved, we might also want to decrement reserved, but for simplicity we just reduce overall quantity.
+
+        // Decrement actual quantity. If it was reserved, we might also want to
+        // decrement reserved, but for simplicity we just reduce overall quantity.
         inventory.setQuantity(inventory.getQuantity() - quantity);
         inventoryRepository.save(inventory);
     }
 }
-

@@ -1,31 +1,21 @@
 package com.ecommerce.order_service.entity;
 
-import com.ecommerce.order_service.controller.*;
-import com.ecommerce.order_service.entity.*;
-import com.ecommerce.order_service.exception.*;
-import com.ecommerce.order_service.repository.*;
-import com.ecommerce.order_service.service.*;
-import com.ecommerce.order_service.dto.request.*;
-import com.ecommerce.order_service.dto.response.*;
-import com.ecommerce.order_service.kafka.event.*;
-import com.ecommerce.order_service.kafka.producer.*;
-import com.ecommerce.order_service.service.impl.*;
-
-
 import jakarta.persistence.*;
 import lombok.*;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.ecommerce.order_service.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@Builder
 @Entity
 @Table(name = "orders")
-@Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -45,7 +35,6 @@ public class Order {
     @Column(name = "shipping_address", columnDefinition = "TEXT")
     private String shippingAddress;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderItem> items = new ArrayList<>();
@@ -69,4 +58,3 @@ public class Order {
         item.setOrder(null);
     }
 }
-

@@ -1,6 +1,4 @@
-package com.ecommerce.cart_service.controller;
-
-import com.ecommerce.cart_service.exception.*;
+package com.ecommerce.cart_service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

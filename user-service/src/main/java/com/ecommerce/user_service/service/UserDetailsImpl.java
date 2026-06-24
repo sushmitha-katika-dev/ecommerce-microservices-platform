@@ -1,19 +1,10 @@
 package com.ecommerce.user_service.service;
 
-import com.ecommerce.user_service.config.*;
-import com.ecommerce.user_service.controller.*;
-import com.ecommerce.user_service.entity.*;
-import com.ecommerce.user_service.repository.*;
-import com.ecommerce.user_service.security.*;
-import com.ecommerce.user_service.service.*;
-import com.ecommerce.user_service.dto.request.*;
-import com.ecommerce.user_service.dto.response.*;
-import com.ecommerce.user_service.service.impl.*;
-
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.ecommerce.user_service.entity.User;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -66,4 +57,3 @@ public class UserDetailsImpl implements UserDetails {
         return "ACTIVE".equals(user.getStatus());
     }
 }
-

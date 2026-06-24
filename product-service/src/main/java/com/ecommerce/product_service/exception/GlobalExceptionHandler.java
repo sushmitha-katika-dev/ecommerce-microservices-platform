@@ -1,16 +1,4 @@
-package com.ecommerce.product_service.controller;
-
-import com.ecommerce.product_service.controller.*;
-import com.ecommerce.product_service.entity.*;
-import com.ecommerce.product_service.exception.*;
-import com.ecommerce.product_service.repository.*;
-import com.ecommerce.product_service.dto.request.*;
-import com.ecommerce.product_service.dto.response.*;
-import com.ecommerce.product_service.kafka.consumer.*;
-import com.ecommerce.product_service.kafka.event.*;
-import com.ecommerce.product_service.kafka.producer.*;
-import com.ecommerce.product_service.service.impl.*;
-
+package com.ecommerce.product_service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +31,3 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, status);
     }
 }
-

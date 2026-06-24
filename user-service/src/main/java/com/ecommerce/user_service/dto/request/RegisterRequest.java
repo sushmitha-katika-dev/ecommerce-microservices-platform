@@ -1,16 +1,5 @@
 package com.ecommerce.user_service.dto.request;
 
-import com.ecommerce.user_service.config.*;
-import com.ecommerce.user_service.controller.*;
-import com.ecommerce.user_service.entity.*;
-import com.ecommerce.user_service.repository.*;
-import com.ecommerce.user_service.security.*;
-import com.ecommerce.user_service.service.*;
-import com.ecommerce.user_service.dto.request.*;
-import com.ecommerce.user_service.dto.response.*;
-import com.ecommerce.user_service.service.impl.*;
-
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -36,4 +25,3 @@ public class RegisterRequest {
     @NotBlank(message = "Last name is required")
     private String lastName;
 }
-
