@@ -1,4 +1,4 @@
-package com.ecommerce.userservice.infrastructure.configuration;
+package com.ecommerce.user_service.infrastructure.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
