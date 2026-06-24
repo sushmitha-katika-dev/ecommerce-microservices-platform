@@ -1,5 +1,11 @@
 package com.ecommerce.order_service.dto.request;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
+import lombok.Builder;
+
 import com.ecommerce.order_service.controller.*;
 import com.ecommerce.order_service.entity.*;
 import com.ecommerce.order_service.exception.*;
@@ -20,6 +26,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemRequest {
     @NotBlank
     private String productId;
@@ -31,4 +40,5 @@ public class OrderItemRequest {
     @NotNull
     private BigDecimal unitPrice;
 }
+
 

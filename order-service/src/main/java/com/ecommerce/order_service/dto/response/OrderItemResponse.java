@@ -1,5 +1,9 @@
 package com.ecommerce.order_service.dto.response;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
 import com.ecommerce.order_service.controller.*;
 import com.ecommerce.order_service.entity.*;
 import com.ecommerce.order_service.exception.*;
@@ -19,10 +23,13 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItemResponse {
     private String id;
     private String productId;
     private Integer quantity;
     private BigDecimal unitPrice;
 }
+
 

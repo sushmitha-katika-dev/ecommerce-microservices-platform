@@ -1,6 +1,5 @@
 package com.ecommerce.cart_service.service.impl;
 
-import com.ecommerce.cart_service.controller.*;
 import com.ecommerce.cart_service.entity.*;
 import com.ecommerce.cart_service.exception.*;
 import com.ecommerce.cart_service.repository.*;
@@ -9,8 +8,6 @@ import com.ecommerce.cart_service.dto.request.*;
 import com.ecommerce.cart_service.dto.response.*;
 import com.ecommerce.cart_service.kafka.event.*;
 import com.ecommerce.cart_service.kafka.producer.*;
-import com.ecommerce.cart_service.service.impl.*;
-
 
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -41,7 +38,7 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public CartResponse addItem(String sessionId, CartItemRequest request) {
         Cart cart = getOrCreateCart(sessionId);
-        
+
         // Validate product via Feign Client
         ProductResponse product;
         try {
@@ -76,9 +73,9 @@ public class CartServiceImpl implements CartService {
     @Transactional
     public CartResponse removeItem(String sessionId, String productId) {
         Cart cart = getOrCreateCart(sessionId);
-        
+
         cart.getItems().removeIf(item -> item.getProductId().equals(productId));
-        
+
         Cart savedCart = cartRepository.save(cart);
         return mapToResponse(savedCart);
     }
@@ -91,15 +88,15 @@ public class CartServiceImpl implements CartService {
             throw new IllegalStateException("Cannot checkout an empty cart");
         }
 
-        java.util.List<CartItemDto> eventItems = cart.getItems().stream()
-                .map(item -> builder()
+        java.util.List<CartCheckoutEvent.CartItemDto> eventItems = cart.getItems().stream()
+                .map(item -> CartCheckoutEvent.CartItemDto.builder()
                         .productId(item.getProductId())
                         .quantity(item.getQuantity())
                         .unitPrice(item.getUnitPrice())
                         .build())
                 .collect(Collectors.toList());
 
-        CartCheckoutEvent event = builder()
+        CartCheckoutEvent event = CartCheckoutEvent.builder()
                 .userId(sessionId) // using sessionId as userId representation for now
                 .items(eventItems)
                 .build();
@@ -140,4 +137,3 @@ public class CartServiceImpl implements CartService {
                 .build();
     }
 }
-

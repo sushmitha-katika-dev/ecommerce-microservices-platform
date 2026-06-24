@@ -1,5 +1,9 @@
 package com.ecommerce.order_service.dto.response;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
 import com.ecommerce.order_service.controller.*;
 import com.ecommerce.order_service.entity.*;
 import com.ecommerce.order_service.exception.*;
@@ -21,6 +25,8 @@ import java.util.List;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderResponse {
     private String id;
     private String userId;
@@ -30,4 +36,5 @@ public class OrderResponse {
     private LocalDateTime createdAt;
     private List<OrderItemResponse> items;
 }
+
 

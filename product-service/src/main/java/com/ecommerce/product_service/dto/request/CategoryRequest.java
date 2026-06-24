@@ -1,5 +1,11 @@
 package com.ecommerce.product_service.dto.request;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
+import lombok.Builder;
+
 import com.ecommerce.product_service.controller.*;
 import com.ecommerce.product_service.entity.*;
 import com.ecommerce.product_service.exception.*;
@@ -16,6 +22,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CategoryRequest {
     @NotBlank
     private String name;
@@ -23,4 +32,5 @@ public class CategoryRequest {
     private String slug;
     private String parentId;
 }
+
 

@@ -14,6 +14,7 @@ import com.ecommerce.order_service.service.impl.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import java.math.BigDecimal;
 
@@ -25,6 +26,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;

@@ -1,5 +1,11 @@
 package com.ecommerce.order_service.dto.request;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
+import lombok.Builder;
+
 import com.ecommerce.order_service.controller.*;
 import com.ecommerce.order_service.entity.*;
 import com.ecommerce.order_service.exception.*;
@@ -20,6 +26,9 @@ import lombok.Data;
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderRequest {
     @NotBlank
     private String userId;
@@ -31,4 +40,5 @@ public class OrderRequest {
     @Valid
     private List<OrderItemRequest> items;
 }
+
 

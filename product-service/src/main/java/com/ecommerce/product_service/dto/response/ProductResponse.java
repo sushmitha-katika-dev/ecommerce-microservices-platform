@@ -1,5 +1,9 @@
 package com.ecommerce.product_service.dto.response;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
 import com.ecommerce.product_service.controller.*;
 import com.ecommerce.product_service.entity.*;
 import com.ecommerce.product_service.exception.*;
@@ -19,6 +23,8 @@ import java.math.BigDecimal;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductResponse {
     private String id;
     private String categoryId;
@@ -28,4 +34,5 @@ public class ProductResponse {
     private BigDecimal price;
     private boolean active;
 }
+
 

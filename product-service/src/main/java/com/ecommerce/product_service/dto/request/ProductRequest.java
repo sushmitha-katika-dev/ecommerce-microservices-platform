@@ -1,5 +1,11 @@
 package com.ecommerce.product_service.dto.request;
 
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
+import lombok.Builder;
+
 import com.ecommerce.product_service.controller.*;
 import com.ecommerce.product_service.entity.*;
 import com.ecommerce.product_service.exception.*;
@@ -20,6 +26,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequest {
     @NotBlank
     private String categoryId;
@@ -36,6 +45,8 @@ public class ProductRequest {
     @DecimalMin("0.0")
     private BigDecimal price;
     
+    @Builder.Default
     private boolean active = true;
 }
+
 

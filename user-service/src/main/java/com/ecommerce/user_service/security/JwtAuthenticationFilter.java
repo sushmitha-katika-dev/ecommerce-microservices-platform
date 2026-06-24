@@ -1,15 +1,6 @@
 package com.ecommerce.user_service.security;
 
-import com.ecommerce.user_service.config.*;
-import com.ecommerce.user_service.controller.*;
-import com.ecommerce.user_service.entity.*;
-import com.ecommerce.user_service.repository.*;
-import com.ecommerce.user_service.security.*;
-import com.ecommerce.user_service.service.*;
-import com.ecommerce.user_service.dto.request.*;
-import com.ecommerce.user_service.dto.response.*;
 import com.ecommerce.user_service.service.impl.*;
-
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -38,8 +29,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain
-    ) throws ServletException, IOException {
+            @NonNull FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
@@ -58,11 +48,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
-                            userDetails.getAuthorities()
-                    );
+                            userDetails.getAuthorities());
                     authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
+                            new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
@@ -73,4 +61,3 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 }
-

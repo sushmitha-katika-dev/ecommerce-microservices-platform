@@ -14,6 +14,7 @@ import com.ecommerce.order_service.service.impl.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -44,6 +45,7 @@ public class Order {
     @Column(name = "shipping_address", columnDefinition = "TEXT")
     private String shippingAddress;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<OrderItem> items = new ArrayList<>();

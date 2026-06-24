@@ -1,16 +1,14 @@
-package impl;
+package com.ecommerce.product_service.service.impl;
 
-import com.ecommerce.product_service.controller.*;
 import com.ecommerce.product_service.entity.*;
 import com.ecommerce.product_service.exception.*;
 import com.ecommerce.product_service.repository.*;
-import request.*;
-import response.*;
-import consumer.*;
-import event.*;
-import producer.*;
-import impl.*;
-
+import com.ecommerce.product_service.dto.request.*;
+import com.ecommerce.product_service.dto.response.*;
+import com.ecommerce.product_service.kafka.consumer.*;
+import com.ecommerce.product_service.kafka.event.*;
+import com.ecommerce.product_service.kafka.producer.*;
+import com.ecommerce.product_service.service.impl.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,89 +21,87 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductRepository productRepository;
-    private final CategoryRepository categoryRepository;
-    private final InventoryRepository inventoryRepository;
-    private final ProductEventPublisher productEventPublisher;
+        private final ProductRepository productRepository;
+        private final CategoryRepository categoryRepository;
+        private final InventoryRepository inventoryRepository;
+        private final ProductEventPublisher productEventPublisher;
 
-    @Transactional(readOnly = true)
-    public List<ProductResponse> getAllProducts() {
-        return productRepository.findAll().stream()
-                .map(this::mapToResponse)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public ProductResponse getProductById(String id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
-        return mapToResponse(product);
-    }
-
-    @Transactional
-    public ProductResponse createProduct(ProductRequest request) {
-        if (productRepository.existsBySku(request.getSku())) {
-            throw new DuplicateResourceException("Product with SKU already exists: " + request.getSku());
+        @Transactional(readOnly = true)
+        public List<ProductResponse> getAllProducts() {
+                return productRepository.findAll().stream()
+                                .map(this::mapToResponse)
+                                .collect(Collectors.toList());
         }
 
-        Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        @Transactional(readOnly = true)
+        public ProductResponse getProductById(String id) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+                return mapToResponse(product);
+        }
 
-        Product product = Product.builder()
-                .category(category)
-                .name(request.getName())
-                .sku(request.getSku())
-                .description(request.getDescription())
-                .price(request.getPrice())
-                .active(request.isActive())
-                .build();
+        @Transactional
+        public ProductResponse createProduct(ProductRequest request) {
+                if (productRepository.existsBySku(request.getSku())) {
+                        throw new DuplicateResourceException("Product with SKU already exists: " + request.getSku());
+                }
 
-        Product savedProduct = productRepository.save(product);
+                Category category = categoryRepository.findById(request.getCategoryId())
+                                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
-        // Initialize inventory for the new product
-        Inventory inventory = Inventory.builder()
-                .productId(savedProduct.getId())
-                .quantity(0)
-                .reservedQuantity(0)
-                .build();
-        inventoryRepository.save(inventory);
+                Product product = Product.builder()
+                                .category(category)
+                                .name(request.getName())
+                                .sku(request.getSku())
+                                .description(request.getDescription())
+                                .price(request.getPrice())
+                                .active(request.isActive())
+                                .build();
 
-        ProductEvent event = builder()
-                .productId(savedProduct.getId())
-                .name(savedProduct.getName())
-                .action("CREATED")
-                .build();
-        productEventPublisher.publishProductEvent(event);
+                Product savedProduct = productRepository.save(product);
 
-        return mapToResponse(savedProduct);
-    }
+                // Initialize inventory for the new product
+                Inventory inventory = Inventory.builder()
+                                .productId(savedProduct.getId())
+                                .quantity(0)
+                                .reservedQuantity(0)
+                                .build();
+                inventoryRepository.save(inventory);
 
-    @Transactional
-    public void deleteProduct(String id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
-        
-        productRepository.deleteById(id);
+                ProductEvent event = ProductEvent.builder()
+                                .productId(savedProduct.getId())
+                                .name(savedProduct.getName())
+                                .action("CREATED")
+                                .build();
+                productEventPublisher.publishProductEvent(event);
 
-        ProductEvent event = builder()
-                .productId(id)
-                .name(product.getName())
-                .action("DELETED")
-                .build();
-        productEventPublisher.publishProductEvent(event);
-    }
+                return mapToResponse(savedProduct);
+        }
 
-    private ProductResponse mapToResponse(Product product) {
-        return ProductResponse.builder()
-                .id(product.getId())
-                .categoryId(product.getCategory().getId())
-                .name(product.getName())
-                .sku(product.getSku())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .active(product.isActive())
-                .build();
-    }
+        @Transactional
+        public void deleteProduct(String id) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+
+                productRepository.deleteById(id);
+
+                ProductEvent event = ProductEvent.builder()
+                                .productId(id)
+                                .name(product.getName())
+                                .action("DELETED")
+                                .build();
+                productEventPublisher.publishProductEvent(event);
+        }
+
+        private ProductResponse mapToResponse(Product product) {
+                return ProductResponse.builder()
+                                .id(product.getId())
+                                .categoryId(product.getCategory().getId())
+                                .name(product.getName())
+                                .sku(product.getSku())
+                                .description(product.getDescription())
+                                .price(product.getPrice())
+                                .active(product.isActive())
+                                .build();
+        }
 }
-
-

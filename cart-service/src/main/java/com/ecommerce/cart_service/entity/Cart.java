@@ -14,6 +14,7 @@ import com.ecommerce.cart_service.service.impl.*;
 
 import jakarta.persistence.*;
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ public class Cart {
     @Column(nullable = false)
     private CartStatus status;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<CartItem> items = new ArrayList<>();
@@ -49,6 +51,8 @@ public class Cart {
 
     @Version
     private Integer version;
+
+
 
     public void addItem(CartItem item) {
         items.add(item);
