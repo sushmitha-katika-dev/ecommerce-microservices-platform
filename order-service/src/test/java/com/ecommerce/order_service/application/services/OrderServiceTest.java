@@ -1,13 +1,13 @@
 package com.ecommerce.order_service.application.services;
 
-import com.ecommerce.order_service.application.dtos.OrderCreatedEvent;
-import com.ecommerce.order_service.application.dtos.OrderItemRequest;
-import com.ecommerce.order_service.application.dtos.OrderRequest;
-import com.ecommerce.order_service.application.dtos.OrderResponse;
-import com.ecommerce.order_service.domain.entities.Order;
-import com.ecommerce.order_service.domain.entities.OrderStatus;
-import com.ecommerce.order_service.infrastructure.messaging.OrderEventPublisher;
-import com.ecommerce.order_service.infrastructure.persistence.OrderRepository;
+import OrderCreatedEvent;
+import OrderItemRequest;
+import OrderRequest;
+import OrderResponse;
+import Order;
+import OrderStatus;
+import OrderEventPublisher;
+import OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

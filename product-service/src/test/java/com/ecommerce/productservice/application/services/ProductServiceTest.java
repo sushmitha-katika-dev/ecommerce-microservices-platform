@@ -1,15 +1,15 @@
-package com.ecommerce.productservice.application.services;
+package com.ecommerce.product_service.application.services;
 
-import com.ecommerce.productservice.application.dtos.ProductRequest;
-import com.ecommerce.productservice.application.dtos.ProductResponse;
-import com.ecommerce.productservice.domain.entities.Category;
-import com.ecommerce.productservice.domain.entities.Inventory;
-import com.ecommerce.productservice.domain.entities.Product;
-import com.ecommerce.productservice.domain.exceptions.DuplicateResourceException;
-import com.ecommerce.productservice.domain.exceptions.ResourceNotFoundException;
-import com.ecommerce.productservice.infrastructure.persistence.CategoryRepository;
-import com.ecommerce.productservice.infrastructure.persistence.InventoryRepository;
-import com.ecommerce.productservice.infrastructure.persistence.ProductRepository;
+import ProductRequest;
+import ProductResponse;
+import Category;
+import Inventory;
+import Product;
+import DuplicateResourceException;
+import ResourceNotFoundException;
+import CategoryRepository;
+import InventoryRepository;
+import ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

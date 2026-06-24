@@ -1,13 +1,13 @@
 package com.ecommerce.cart_service.application.services;
 
-import com.ecommerce.cart_service.application.dtos.CartItemRequest;
-import com.ecommerce.cart_service.application.dtos.CartResponse;
-import com.ecommerce.cart_service.application.dtos.ProductResponse;
-import com.ecommerce.cart_service.application.ports.ProductServiceClient;
-import com.ecommerce.cart_service.domain.entities.Cart;
-import com.ecommerce.cart_service.domain.entities.CartStatus;
-import com.ecommerce.cart_service.domain.exceptions.ProductValidationException;
-import com.ecommerce.cart_service.infrastructure.persistence.CartRepository;
+import CartItemRequest;
+import CartResponse;
+import ProductResponse;
+import ProductServiceClient;
+import Cart;
+import CartStatus;
+import ProductValidationException;
+import CartRepository;
 import feign.FeignException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
