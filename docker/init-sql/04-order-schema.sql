@@ -5,7 +5,7 @@ CREATE TABLE orders (
     user_id VARCHAR(36) NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    shipping_address_id VARCHAR(36),
+    shipping_address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     version INT DEFAULT 0
@@ -20,7 +20,6 @@ CREATE TABLE order_items (
     product_id VARCHAR(36) NOT NULL,
     quantity INT NOT NULL,
     unit_price DECIMAL(10,2) NOT NULL,
-    subtotal DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     version INT DEFAULT 0,

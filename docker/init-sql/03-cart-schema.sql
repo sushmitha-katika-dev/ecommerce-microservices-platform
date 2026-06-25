@@ -3,7 +3,7 @@ USE ecommerce_cart_db;
 CREATE TABLE carts (
     id VARCHAR(36) PRIMARY KEY,
     user_id VARCHAR(36), -- Nullable for guest carts
-    session_id VARCHAR(255) NOT NULL,
+    session_id VARCHAR(255) NOT NULL UNIQUE,
     status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
