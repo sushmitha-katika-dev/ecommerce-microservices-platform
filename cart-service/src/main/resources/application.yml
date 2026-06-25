@@ -5,7 +5,7 @@ spring:
   application:
     name: cart-service
   datasource:
-    url: jdbc:mysql://localhost:3306/ecommerce_cart_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/ecommerce_cart_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +19,7 @@ spring:
         format_sql: true
 
 product-service:
-  url: http://localhost:8082
+  url: ${PRODUCT_SERVICE_URL:http://localhost:8082}
 
 springdoc:
   api-docs:
