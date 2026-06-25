@@ -8,7 +8,7 @@ sequenceDiagram
     participant Client
     participant Gateway as API Gateway
     participant UserSvc as User Service
-    participant ProtectedSvc as Protected API (e.g., Order)
+    participant ProtectedSvc as Protected API
 
     %% Login Process
     Client->>Gateway: POST /api/users/auth/login (email, pass)

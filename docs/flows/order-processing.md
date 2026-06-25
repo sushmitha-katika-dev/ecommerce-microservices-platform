@@ -16,21 +16,21 @@ sequenceDiagram
     Customer->>CartSvc: POST /api/v1/carts/checkout
     CartSvc->>OrderSvc: (Internal or Client driven Place Order)
     OrderSvc->>OrderSvc: Save Order (Status: PENDING)
-    OrderSvc->>Kafka: Publish `order-created` Event
+    OrderSvc->>Kafka: Publish order-created Event
     
     %% Parallel processing by consumers
-    par Inventory Management
-        Kafka-->>ProdSvc: Consume `order-created`
+    par [Inventory Management]
+        Kafka-->>ProdSvc: Consume order-created
         ProdSvc->>ProdSvc: Reserve Inventory
-    and Payment Processing
-        Kafka-->>PaySvc: Consume `order-created`
+    and [Payment Processing]
+        Kafka-->>PaySvc: Consume order-created
         PaySvc->>PaySvc: Charge Credit Card
-        PaySvc->>Kafka: Publish `payment-completed` Event
-    and Order Notification
-        Kafka-->>NotifSvc: Consume `order-created`
+        PaySvc->>Kafka: Publish payment-completed Event
+    and [Order Notification]
+        Kafka-->>NotifSvc: Consume order-created
         NotifSvc->>NotifSvc: Send "Order Received" Email
     end
     
-    Kafka-->>NotifSvc: Consume `payment-completed`
+    Kafka-->>NotifSvc: Consume payment-completed
     NotifSvc->>NotifSvc: Send "Payment Receipt" Email
 ```\n
