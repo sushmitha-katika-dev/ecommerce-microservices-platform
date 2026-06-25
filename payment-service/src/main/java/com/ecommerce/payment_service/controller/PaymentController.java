@@ -1,7 +1,7 @@
 package com.ecommerce.payment_service.controller;
 
-import com.ecommerce.payment_service.dto.response.*;
-import com.ecommerce.payment_service.service.impl.*;
+import com.ecommerce.payment_service.dto.response.PaymentResponse;
+import com.ecommerce.payment_service.service.PaymentService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.ecommerce.user_service.controller;
 
 import com.ecommerce.user_service.dto.response.*;
-import com.ecommerce.user_service.service.impl.*;
+import com.ecommerce.user_service.service.*;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

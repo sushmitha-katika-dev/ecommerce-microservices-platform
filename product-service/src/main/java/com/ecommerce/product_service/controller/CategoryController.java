@@ -1,8 +1,8 @@
 package com.ecommerce.product_service.controller;
 
-import com.ecommerce.product_service.dto.request.*;
-import com.ecommerce.product_service.dto.response.*;
-import com.ecommerce.product_service.service.impl.*;
+import com.ecommerce.product_service.dto.request.CategoryRequest;
+import com.ecommerce.product_service.dto.response.CategoryResponse;
+import com.ecommerce.product_service.service.CategoryService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.ecommerce.user_service.security;
 
-import com.ecommerce.user_service.service.impl.*;
+import com.ecommerce.user_service.service.*;
 
 import io.micrometer.common.lang.Nullable;
 import jakarta.servlet.FilterChain;

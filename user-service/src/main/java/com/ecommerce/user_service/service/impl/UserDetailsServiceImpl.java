@@ -2,7 +2,7 @@ package com.ecommerce.user_service.service.impl;
 
 import com.ecommerce.user_service.entity.*;
 import com.ecommerce.user_service.repository.*;
-import com.ecommerce.user_service.service.*;
+import com.ecommerce.user_service.security.CustomUserDetails;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +20,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
-        return new UserDetailsImpl(user);
+        return new CustomUserDetails(user);
     }
 }

@@ -2,7 +2,7 @@ package com.ecommerce.user_service.controller;
 
 import com.ecommerce.user_service.dto.request.*;
 import com.ecommerce.user_service.dto.response.*;
-import com.ecommerce.user_service.service.impl.*;
+import com.ecommerce.user_service.service.*;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

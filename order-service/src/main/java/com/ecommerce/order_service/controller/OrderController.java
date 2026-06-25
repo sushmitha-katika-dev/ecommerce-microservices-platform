@@ -2,7 +2,7 @@ package com.ecommerce.order_service.controller;
 
 import com.ecommerce.order_service.dto.request.*;
 import com.ecommerce.order_service.dto.response.*;
-import com.ecommerce.order_service.service.impl.*;
+import com.ecommerce.order_service.service.*;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.ecommerce.product_service.controller;
 
-import com.ecommerce.product_service.dto.request.*;
-import com.ecommerce.product_service.service.impl.*;
+import com.ecommerce.product_service.dto.request.InventoryUpdateRequest;
+import com.ecommerce.product_service.service.InventoryService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

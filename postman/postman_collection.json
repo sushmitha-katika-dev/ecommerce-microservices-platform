@@ -1,0 +1,490 @@
+{
+    "info": {
+        "name": "E-Commerce Microservices Platform",
+        "description": "Integration testing collection for the E-Commerce platform.",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{userServiceUrl}}/api/users/auth/register",
+                            "host": [
+                                "{{userServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "auth",
+                                "register"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if(jsonData.token) {",
+                                    "    pm.environment.set(\"jwtToken\", jsonData.token);",
+                                    "}",
+                                    "if(jsonData.user && jsonData.user.id) {",
+                                    "    pm.environment.set(\"userId\", jsonData.user.id);",
+                                    "}",
+                                    "if(!pm.environment.get(\"sessionId\")) {",
+                                    "    const uuid = require('uuid');",
+                                    "    pm.environment.set(\"sessionId\", uuid.v4());",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{userServiceUrl}}/api/users/auth/login",
+                            "host": [
+                                "{{userServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Product",
+            "item": [
+                {
+                    "name": "Create Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Test Product\",\n    \"sku\": \"SKU-12345\",\n    \"description\": \"A great test product\",\n    \"price\": 99.99,\n    \"categoryId\": \"123e4567-e89b-12d3-a456-426614174000\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/products",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "List Products",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/products",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Cart",
+            "item": [
+                {
+                    "name": "Add to Cart",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"productId\": \"123e4567-e89b-12d3-a456-426614174001\",\n    \"quantity\": 2\n}"
+                        },
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{sessionId}}/items",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{sessionId}}",
+                                "items"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Remove Item",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{sessionId}}/items/123e4567-e89b-12d3-a456-426614174001",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{sessionId}}",
+                                "items",
+                                "123e4567-e89b-12d3-a456-426614174001"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "View Cart",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{sessionId}}",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{sessionId}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Order",
+            "item": [
+                {
+                    "name": "Checkout",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{sessionId}}/checkout",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{sessionId}}",
+                                "checkout"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Place Order",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "exec": [
+                                    "var jsonData = pm.response.json();",
+                                    "if(jsonData.id) {",
+                                    "    pm.environment.set(\"orderId\", jsonData.id);",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"userId\": \"{{userId}}\",\n    \"shippingAddress\": \"123 Test Street\",\n    \"items\": [\n        {\n            \"productId\": \"123e4567-e89b-12d3-a456-426614174001\",\n            \"quantity\": 2,\n            \"unitPrice\": 99.99\n        }\n    ]\n}"
+                        },
+                        "url": {
+                            "raw": "{{orderServiceUrl}}/api/v1/orders",
+                            "host": [
+                                "{{orderServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "orders"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "View Orders",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{orderServiceUrl}}/api/v1/orders/user/{{userId}}",
+                            "host": [
+                                "{{orderServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "orders",
+                                "user",
+                                "{{userId}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Payment",
+            "item": [
+                {
+                    "name": "View Payment History",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{paymentServiceUrl}}/api/v1/payments/order/{{orderId}}",
+                            "host": [
+                                "{{paymentServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "payments",
+                                "order",
+                                "{{orderId}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Notification",
+            "item": [
+                {
+                    "name": "Verify notification endpoint (if exposed)",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{notificationServiceUrl}}/api/v1/notifications/order/{{orderId}}",
+                            "host": [
+                                "{{notificationServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "notifications",
+                                "order",
+                                "{{orderId}}"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Negative Test Cases",
+            "item": [
+                {
+                    "name": "Invalid JWT",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer invalid.jwt.token"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{userServiceUrl}}/api/users/me",
+                            "host": [
+                                "{{userServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Missing JWT",
+                    "request": {
+                        "auth": {
+                            "type": "noauth"
+                        },
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{userServiceUrl}}/api/users/me",
+                            "host": [
+                                "{{userServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Invalid Product",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"\",\n    \"price\": -10\n}"
+                        },
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/products",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Invalid Cart",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"productId\": \"invalid-id\",\n    \"quantity\": -5\n}"
+                        },
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{sessionId}}/items",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{sessionId}}",
+                                "items"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Invalid Order",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{orderServiceUrl}}/api/v1/orders/invalid-order-id",
+                            "host": [
+                                "{{orderServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "orders",
+                                "invalid-order-id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{jwtToken}}",
+                "type": "string"
+            }
+        ]
+    }
+}

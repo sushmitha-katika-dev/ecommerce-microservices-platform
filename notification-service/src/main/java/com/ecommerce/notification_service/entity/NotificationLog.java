@@ -8,12 +8,16 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "notification_logs")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class NotificationLog {
 
     @Id

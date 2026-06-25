@@ -1,7 +1,7 @@
 package com.ecommerce.notification_service.controller;
 
-import com.ecommerce.notification_service.entity.*;
-import com.ecommerce.notification_service.repository.*;
+import com.ecommerce.notification_service.entity.NotificationLog;
+import com.ecommerce.notification_service.repository.NotificationRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +17,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NotificationController {
 
-    private final NotificationLogRepository notificationLogRepository;
+    private final NotificationRepository notificationRepository;
 
     @GetMapping
     public ResponseEntity<List<NotificationLog>> getAllNotificationLogs() {
-        return ResponseEntity.ok(notificationLogRepository.findAll());
+        return ResponseEntity.ok(notificationRepository.findAll());
     }
 
     @GetMapping("/order/{orderId}")
     public ResponseEntity<List<NotificationLog>> getNotificationLogsByOrderId(@PathVariable String orderId) {
-        return ResponseEntity.ok(notificationLogRepository.findByOrderId(orderId));
+        return ResponseEntity.ok(notificationRepository.findByOrderId(orderId));
     }
 }
