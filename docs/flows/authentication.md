@@ -25,4 +25,4 @@ sequenceDiagram
     ProtectedSvc->>ProtectedSvc: Process Business Logic
     ProtectedSvc-->>Gateway: HTTP 200 (Data)
     Gateway-->>Client: HTTP 200 (Data)
-```\n
+```

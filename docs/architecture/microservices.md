@@ -52,4 +52,4 @@ classDiagram
 | **Cart** | Temporary storage of shopping session items. | `cart_db` | None |
 | **Order** | Order creation, validation, and history management. | `order_db` | Publishes `order-created` |
 | **Payment** | Processing financial transactions for orders. | `payment_db` | Consumes `order-created`, Publishes `payment-completed` |
-| **Notification**| Asynchronous email/SMS notifications to users. | `notification_db` | Consumes `order-created`, `payment-completed` |\n
+| **Notification**| Asynchronous email/SMS notifications to users. | `notification_db` | Consumes `order-created`, `payment-completed` |

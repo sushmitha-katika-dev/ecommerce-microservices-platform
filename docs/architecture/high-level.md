@@ -58,4 +58,4 @@ graph TD
 - **React → API Gateway**: The client interacts exclusively with the API Gateway, shielding internal service complexities.
 - **API Gateway → Microservices**: Request routing, rate-limiting, and central JWT verification.
 - **Kafka**: Used for decoupled, eventual consistency across services.
-- **Databases**: Strict database-per-service isolation pattern using MySQL.\n
+- **Databases**: Strict database-per-service isolation pattern using MySQL.

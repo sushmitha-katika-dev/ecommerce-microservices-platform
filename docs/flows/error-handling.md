@@ -22,4 +22,4 @@ graph TD
     Auth --> Output
     Sys --> Output
     Output --> Client
-```\n
+```

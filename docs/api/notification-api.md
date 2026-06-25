@@ -6,4 +6,4 @@
 Retrieves all notification logs.
 
 ### `GET /order/{orderId}`
-Retrieves notification logs for a specific order.\n
+Retrieves notification logs for a specific order.

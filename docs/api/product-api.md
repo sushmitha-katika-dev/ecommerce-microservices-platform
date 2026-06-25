@@ -12,4 +12,4 @@ Retrieves a specific product by ID.
 Creates a new product. (Admin only)
 
 ### `DELETE /{id}`
-Deletes a product by ID. (Admin only)\n
+Deletes a product by ID. (Admin only)

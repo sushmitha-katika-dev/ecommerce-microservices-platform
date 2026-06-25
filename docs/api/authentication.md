@@ -9,4 +9,4 @@ Registers a new user.
 ### `POST /login`
 Authenticates a user and returns a JWT.
 - **Body**: `{ "email": "", "password": "" }`
-- **Response**: `{ "token": "...", "user": { ... } }`\n
+- **Response**: `{ "token": "...", "user": { ... } }`

@@ -8,4 +8,4 @@ See individual documentation files for detailed schemas:
 - [Cart API](cart-api.md)
 - [Order API](order-api.md)
 - [Payment API](payment-api.md)
-- [Notification API](notification-api.md)\n
+- [Notification API](notification-api.md)

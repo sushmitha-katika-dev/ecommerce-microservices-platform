@@ -10,4 +10,4 @@ The platform uses a microservices architecture to ensure high availability, hori
 
 ## Communication
 - **Synchronous**: REST APIs via the API Gateway.
-- **Asynchronous**: Kafka Topics for cross-service events.\n
+- **Asynchronous**: Kafka Topics for cross-service events.

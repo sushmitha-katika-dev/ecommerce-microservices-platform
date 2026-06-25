@@ -27,4 +27,4 @@ graph TD
     Mapper -->|Maps| Entity
     Repository -->|Manages| Entity
     Kafka -->|Injects| Service
-```\n
+```

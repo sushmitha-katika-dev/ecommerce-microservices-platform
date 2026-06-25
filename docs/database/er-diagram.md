@@ -11,4 +11,4 @@ erDiagram
         string email
         string passwordHash
     }
-```\n
+```

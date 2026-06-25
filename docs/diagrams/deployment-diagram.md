@@ -9,4 +9,4 @@ graph TD
     Order_Service --> Kafka
     Kafka --> Payment_Service
     Kafka --> Notification_Service
-```\n
+```

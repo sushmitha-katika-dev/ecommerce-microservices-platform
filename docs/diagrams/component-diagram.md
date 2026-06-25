@@ -5,4 +5,4 @@ Each microservice consists of:
 - `Service`: Contains business logic.
 - `Mapper`: Maps between Entities and DTOs.
 - `Repository`: Handles database interactions.
-- `Exception`: Custom error handling.\n
+- `Exception`: Custom error handling.

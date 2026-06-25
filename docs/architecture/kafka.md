@@ -36,4 +36,4 @@ graph LR
 ```
 
 ### Event Contracts
-All payloads are serialized as JSON. Strict POJO representation ensures compatibility between producers and consumers (e.g., `OrderCreatedEvent` payload).\n
+All payloads are serialized as JSON. Strict POJO representation ensures compatibility between producers and consumers (e.g., `OrderCreatedEvent` payload).

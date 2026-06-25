@@ -33,4 +33,4 @@ sequenceDiagram
     
     Kafka-->>NotifSvc: Consume payment-completed
     NotifSvc->>NotifSvc: Send "Payment Receipt" Email
-```\n
+```

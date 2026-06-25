@@ -40,4 +40,4 @@ C4Context
     Rel(payment, kafka, "Publishes/Consumes")
     Rel(notif, kafka, "Consumes")
     Rel(product, kafka, "Consumes")
-```\n
+```

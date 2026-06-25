@@ -28,4 +28,4 @@ graph TD
 2. **Route Resolution**: `application.yml` predicates determine the target service based on the path (e.g., `/api/products/**`).
 3. **JWT Validation**: The custom `JwtAuthenticationFilter` intercepts the request and verifies the signature of the `Authorization` header.
 4. **Request Forwarding**: Valid requests are passed to the downstream service.
-5. **Response Flow**: The response is proxied back through the gateway to the client.\n
+5. **Response Flow**: The response is proxied back through the gateway to the client.

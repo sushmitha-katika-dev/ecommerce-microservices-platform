@@ -17,4 +17,4 @@ sequenceDiagram
     Kafka-->>PaymentService: Consume order-created
     PaymentService->>PaymentService: Process Payment
     PaymentService->>Kafka: Publish payment-completed
-```\n
+```

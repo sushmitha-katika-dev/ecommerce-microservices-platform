@@ -22,4 +22,4 @@ graph TD
 
 ### Components
 - **Postman**: Automates E2E testing mimicking real frontend client behavior.
-- **JUnit & Mockito**: Isolates logic for rapid, reliable unit testing inside the CI pipeline.\n
+- **JUnit & Mockito**: Isolates logic for rapid, reliable unit testing inside the CI pipeline.

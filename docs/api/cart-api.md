@@ -13,4 +13,4 @@ Adds an item to the cart.
 Removes an item from the cart.
 
 ### `POST /{sessionId}/checkout`
-Triggers the checkout process for a cart.\n
+Triggers the checkout process for a cart.

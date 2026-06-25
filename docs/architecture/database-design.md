@@ -9,4 +9,4 @@ Each microservice has its own isolated database schema. Microservices cannot dir
 - `cart-service`: Manages `carts`, `cart_items`.
 - `order-service`: Manages `orders`, `order_items`.
 - `payment-service`: Manages `payments`.
-- `notification-service`: Manages `notification_logs`.\n
+- `notification-service`: Manages `notification_logs`.

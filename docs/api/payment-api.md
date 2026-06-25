@@ -9,4 +9,4 @@ Retrieves all payments.
 Retrieves payment history for a specific order.
 
 ### `GET /user/{userId}`
-Retrieves payment history for a specific user.\n
+Retrieves payment history for a specific user.

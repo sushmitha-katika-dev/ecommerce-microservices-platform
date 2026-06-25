@@ -8,4 +8,4 @@
 ## Running Locally
 1. Start infrastructure: `docker-compose up -d`
 2. Compile project: `mvn clean install -DskipTests`
-3. Run microservices manually or via IDE dashboard.\n
+3. Run microservices manually or via IDE dashboard.

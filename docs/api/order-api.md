@@ -10,4 +10,4 @@ Places a new order directly.
 Retrieves the order history for a specific user.
 
 ### `GET /{orderId}`
-Retrieves a specific order by ID.\n
+Retrieves a specific order by ID.
