@@ -92,7 +92,7 @@ Read the full [Postman Testing Guide](postman/README.md).
 - Implement Circuit Breakers (Resilience4J) for fault tolerance between internal HTTP calls.
 
 ## 📄 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT Lic.
 
 ## ✍️ Author
 Designed and developed by **Sushmitha Katika**.
