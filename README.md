@@ -2,7 +2,7 @@
 
 Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repository showcases a highly decoupled, scalable, and event-driven backend architecture using Java Spring Boot.
 
-![Platform Banner](docs/images/banner-placeholder.png)
+
 
 ## 🚀 Features
 - **Strict Microservices Architecture**: Separation of concerns with dedicated domains (User, Product, Cart, Order, Payment, Notification).

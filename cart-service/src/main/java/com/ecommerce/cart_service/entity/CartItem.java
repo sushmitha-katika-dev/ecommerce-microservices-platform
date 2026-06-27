@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "cart_items")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

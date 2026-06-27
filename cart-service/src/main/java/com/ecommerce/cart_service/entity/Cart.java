@@ -15,6 +15,8 @@ import java.util.List;
 @Entity
 @Table(name = "carts")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

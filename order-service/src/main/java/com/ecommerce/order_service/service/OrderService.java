@@ -11,4 +11,6 @@ public interface OrderService {
     List<OrderResponse> getOrderHistory(String userId);
 
     OrderResponse getOrderById(String orderId);
+
+    void updateOrderStatus(String orderId, com.ecommerce.order_service.enums.OrderStatus status);
 }

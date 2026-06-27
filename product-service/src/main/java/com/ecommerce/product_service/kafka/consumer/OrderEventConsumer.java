@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Slf4j
 @Component
@@ -13,9 +14,18 @@ import org.springframework.stereotype.Component;
 public class OrderEventConsumer {
 
     private final InventoryService inventoryService;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @KafkaListener(topics = "order-created", groupId = "${spring.kafka.consumer.group-id}")
-    public void handleOrderCreated(OrderCreatedEvent event) {
+    public void handleOrderCreated(String payload) {
+        
+        OrderCreatedEvent event = null;
+        try {
+            event = objectMapper.readValue(payload, OrderCreatedEvent.class);
+        } catch (Exception e) {
+            log.error("Failed to parse OrderCreatedEvent from payload: {}", payload, e);
+            return;
+        }
 
         if (event == null) {
             log.warn("Received null OrderCreatedEvent.");

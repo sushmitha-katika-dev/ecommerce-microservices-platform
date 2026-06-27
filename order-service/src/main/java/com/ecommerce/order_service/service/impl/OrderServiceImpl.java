@@ -13,11 +13,13 @@ import com.ecommerce.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -89,6 +91,17 @@ public class OrderServiceImpl implements OrderService {
                                 .orElseThrow(() -> new ResourceNotFoundException(
                                                 "Order not found with id: " + orderId));
                 return mapToResponse(order);
+        }
+
+        @Override
+        @Transactional
+        public void updateOrderStatus(String orderId, OrderStatus status) {
+                Order order = orderRepository.findById(orderId)
+                                .orElseThrow(() -> new ResourceNotFoundException(
+                                                "Order not found with id: " + orderId));
+                order.setStatus(status);
+                orderRepository.save(order);
+                log.info("Updated order {} status to {}", orderId, status);
         }
 
         private OrderResponse mapToResponse(Order order) {
