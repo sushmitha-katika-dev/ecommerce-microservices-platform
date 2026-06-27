@@ -48,3 +48,6 @@ build/
 .classpath
 .project
 .settings/
+
+# Custom
+scratch/
