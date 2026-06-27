@@ -10,6 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.http.HttpMethod;
+
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 import com.ecommerce.api_gateway.util.RouteConstants;
 
@@ -32,7 +39,10 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(RouteConstants.PUBLIC_ROUTES).permitAll()
-                .requestMatchers(RouteConstants.PRODUCT_ROUTES).permitAll()
+                .requestMatchers(HttpMethod.GET, RouteConstants.PRODUCT_ROUTES).permitAll()
+                .requestMatchers(HttpMethod.POST, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.PUT, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
                 .requestMatchers(RouteConstants.PROTECTED_ROUTES).authenticated()
                 .anyRequest().authenticated()
             );
@@ -40,5 +50,17 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*")); // In production, replace with specific origins
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
