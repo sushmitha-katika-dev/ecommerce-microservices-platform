@@ -104,6 +104,22 @@ public class OrderServiceImpl implements OrderService {
                 log.info("Updated order {} status to {}", orderId, status);
         }
 
+        @Override
+        @Transactional(readOnly = true)
+        public List<OrderResponse> getAllOrders() {
+                return orderRepository.findAll().stream()
+                                .map(this::mapToResponse)
+                                .collect(Collectors.toList());
+        }
+
+        @Override
+        @Transactional
+        public void deleteOrder(String orderId) {
+                Order order = orderRepository.findById(orderId)
+                                .orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + orderId));
+                orderRepository.delete(order);
+        }
+
         private OrderResponse mapToResponse(Order order) {
                 List<OrderItemResponse> itemResponses = order.getItems().stream()
                                 .map(item -> OrderItemResponse.builder()

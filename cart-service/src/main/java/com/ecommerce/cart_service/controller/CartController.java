@@ -40,4 +40,18 @@ public class CartController {
         cartService.checkoutCart(sessionId);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{sessionId}/items/{productId}")
+    public ResponseEntity<CartResponse> updateItemQuantity(
+            @PathVariable String sessionId,
+            @PathVariable String productId,
+            @Valid @RequestBody UpdateCartItemRequest request) {
+        return ResponseEntity.ok(cartService.updateItemQuantity(sessionId, productId, request));
+    }
+
+    @DeleteMapping("/{sessionId}")
+    public ResponseEntity<Void> clearCart(@PathVariable String sessionId) {
+        cartService.clearCart(sessionId);
+        return ResponseEntity.noContent().build();
+    }
 }

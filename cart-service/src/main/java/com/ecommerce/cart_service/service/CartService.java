@@ -11,4 +11,8 @@ public interface CartService {
     CartResponse removeItem(String sessionId, String productId);
 
     void checkoutCart(String sessionId);
+
+    CartResponse updateItemQuantity(String sessionId, String productId, UpdateCartItemRequest request);
+
+    void clearCart(String sessionId);
 }

@@ -108,6 +108,30 @@ public class CartServiceImpl implements CartService {
         cartRepository.save(cart);
     }
 
+    @Override
+    @Transactional
+    public CartResponse updateItemQuantity(String sessionId, String productId, UpdateCartItemRequest request) {
+        Cart cart = getOrCreateCart(sessionId);
+
+        CartItem existingItem = cart.getItems().stream()
+                .filter(i -> i.getProductId().equals(productId))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("Item not found in cart"));
+
+        existingItem.setQuantity(request.getQuantity());
+
+        Cart savedCart = cartRepository.save(cart);
+        return mapToResponse(savedCart);
+    }
+
+    @Override
+    @Transactional
+    public void clearCart(String sessionId) {
+        Cart cart = getOrCreateCart(sessionId);
+        cart.getItems().clear();
+        cartRepository.save(cart);
+    }
+
     private Cart getOrCreateCart(String sessionId) {
         return cartRepository.findBySessionId(sessionId)
                 .orElseGet(() -> cartRepository.save(Cart.builder()
