@@ -1,66 +1,64 @@
 package com.ecommerce.notification_service.service.impl;
 
-import com.ecommerce.notification_service.entity.*;
-import com.ecommerce.notification_service.repository.*;
-import com.ecommerce.notification_service.kafka.event.*;
+import com.ecommerce.notification_service.dto.response.NotificationResponse;
+import com.ecommerce.notification_service.entity.NotificationLog;
+import com.ecommerce.notification_service.kafka.event.OrderCreatedEvent;
+import com.ecommerce.notification_service.kafka.event.PaymentCompletedEvent;
+import com.ecommerce.notification_service.mapper.NotificationMapper;
+import com.ecommerce.notification_service.repository.NotificationRepository;
 import com.ecommerce.notification_service.service.EmailService;
 import com.ecommerce.notification_service.service.NotificationService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationServiceImpl implements NotificationService {
 
-        private final EmailService emailService;
-        private final NotificationRepository notificationRepository;
+    private final NotificationRepository notificationRepository;
+    private final EmailService emailService;
+    private final NotificationMapper notificationMapper;
 
-        @Override
-        @Transactional
-        public void processOrderCreated(OrderCreatedEvent event) {
-                log.info("Processing order-created notification for orderId: {}", event.getOrderId());
+    @Override
+    public void processOrderCreated(OrderCreatedEvent event) {
+        log.info("Processing order created event for order: {}", event.getOrderId());
+        NotificationLog notification = NotificationLog.builder()
+                .orderId(event.getOrderId())
+                .eventType("ORDER_CREATED")
+                .message("Order created successfully")
+                .build();
+        notificationRepository.save(notification);
+        emailService.sendEmail("user@example.com", "Order Created", "Your order " + event.getOrderId() + " has been created.");
+    }
 
-                String emailTo = event.getUserId() + "@example.com"; // Mock email based on userId
-                String emailSubject = "Order Confirmation: " + event.getOrderId();
-                String emailBody = String.format(
-                                "Dear customer,\n\nYour order %s has been created successfully.\nTotal Amount: $%s\n\nThank you for shopping with us!",
-                                event.getOrderId(), event.getAmount());
+    @Override
+    public void processPaymentCompleted(PaymentCompletedEvent event) {
+        log.info("Processing payment completed event for order: {}", event.getOrderId());
+        NotificationLog notification = NotificationLog.builder()
+                .orderId(event.getOrderId())
+                .eventType("PAYMENT_COMPLETED")
+                .message("Payment completed successfully")
+                .build();
+        notificationRepository.save(notification);
+        emailService.sendEmail("user@example.com", "Payment Completed", "Payment for order " + event.getOrderId() + " was successful.");
+    }
 
-                emailService.sendEmail(emailTo, emailSubject, emailBody);
+    @Override
+    public List<NotificationResponse> getAllNotifications() {
+        return notificationRepository.findAll().stream()
+                .map(notificationMapper::toResponse)
+                .collect(Collectors.toList());
+    }
 
-                NotificationLog logEntry = NotificationLog.builder()
-                                .orderId(event.getOrderId())
-                                .eventType("ORDER_CREATED")
-                                .message("Order confirmation email sent to " + emailTo)
-                                .build();
-
-                notificationRepository.save(logEntry);
-        }
-
-        @Override
-        @Transactional
-        public void processPaymentCompleted(PaymentCompletedEvent event) {
-                log.info("Processing payment-completed notification for orderId: {}", event.getOrderId());
-
-                // In a real scenario, you'd fetch user details by userId. Here we just mock it.
-                String emailTo = "customer_" + event.getOrderId() + "@example.com";
-                String emailSubject = "Payment Receipt for Order: " + event.getOrderId();
-                String emailBody = String.format(
-                                "Dear customer,\n\nWe have received your payment for order %s.\nPayment ID: %s\nStatus: %s\n\nThank you!",
-                                event.getOrderId(), event.getPaymentId(), event.getStatus());
-
-                emailService.sendEmail(emailTo, emailSubject, emailBody);
-
-                NotificationLog auditLog = NotificationLog.builder()
-                                .orderId(event.getOrderId())
-                                .eventType("PAYMENT_COMPLETED")
-                                .message("Payment receipt email sent to " + emailTo)
-                                .build();
-
-                notificationRepository.save(auditLog);
-        }
+    @Override
+    public List<NotificationResponse> getNotificationsByOrderId(String orderId) {
+        return notificationRepository.findByOrderId(orderId).stream()
+                .map(notificationMapper::toResponse)
+                .collect(Collectors.toList());
+    }
 }

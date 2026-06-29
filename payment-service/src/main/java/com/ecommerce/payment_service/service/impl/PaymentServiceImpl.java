@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ecommerce.payment_service.mapper.PaymentMapper;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -23,6 +25,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final PaymentEventPublisher eventPublisher;
+    private final PaymentMapper paymentMapper;
 
     @Override
     @Transactional
@@ -88,7 +91,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional(readOnly = true)
     public List<PaymentResponse> getAllPayments() {
         return paymentRepository.findAll().stream()
-                .map(this::mapToResponse)
+                .map(paymentMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -96,7 +99,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional(readOnly = true)
     public List<PaymentResponse> getPaymentsByOrderId(String orderId) {
         return paymentRepository.findByOrderId(orderId).stream()
-                .map(this::mapToResponse)
+                .map(paymentMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
@@ -104,19 +107,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional(readOnly = true)
     public List<PaymentResponse> getPaymentsByUserId(String userId) {
         return paymentRepository.findByUserId(userId).stream()
-                .map(this::mapToResponse)
+                .map(paymentMapper::toResponse)
                 .collect(Collectors.toList());
-    }
-
-    private PaymentResponse mapToResponse(Payment payment) {
-        return PaymentResponse.builder()
-                .id(payment.getId())
-                .orderId(payment.getOrderId())
-                .userId(payment.getUserId())
-                .amount(payment.getAmount())
-                .status(payment.getStatus())
-                .createdAt(payment.getCreatedAt())
-                .updatedAt(payment.getUpdatedAt())
-                .build();
     }
 }
