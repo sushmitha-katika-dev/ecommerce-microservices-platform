@@ -96,6 +96,40 @@ public class ProductServiceImpl implements ProductService {
                 productEventPublisher.publishProductEvent(event);
         }
 
+        @Override
+        @Transactional
+        public ProductResponse updateProduct(String id, ProductRequest request) {
+                Product product = productRepository.findById(id)
+                                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+
+                Category category = categoryRepository.findById(request.getCategoryId())
+                                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+
+                product.setName(request.getName());
+                product.setDescription(request.getDescription());
+                product.setPrice(request.getPrice());
+                product.setActive(request.isActive());
+                product.setCategory(category);
+                // Not updating SKU as it should be immutable, or update it if required. Let's update it if it's different and doesn't exist.
+                if (!product.getSku().equals(request.getSku())) {
+                        if (productRepository.existsBySku(request.getSku())) {
+                                throw new DuplicateResourceException("Product with SKU already exists: " + request.getSku());
+                        }
+                        product.setSku(request.getSku());
+                }
+
+                Product savedProduct = productRepository.save(product);
+
+                ProductEvent event = ProductEvent.builder()
+                                .productId(savedProduct.getId())
+                                .name(savedProduct.getName())
+                                .action("UPDATED")
+                                .build();
+                productEventPublisher.publishProductEvent(event);
+
+                return mapToResponse(savedProduct);
+        }
+
         private ProductResponse mapToResponse(Product product) {
                 return ProductResponse.builder()
                                 .id(product.getId())

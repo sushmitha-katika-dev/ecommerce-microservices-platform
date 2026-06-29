@@ -24,4 +24,23 @@ public class UserController {
         String email = authentication.getName();
         return ResponseEntity.ok(userService.getUserProfile(email));
     }
+
+    @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<java.util.List<UserResponse>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<UserResponse> updateUser(@org.springframework.web.bind.annotation.PathVariable String id, @jakarta.validation.Valid @org.springframework.web.bind.annotation.RequestBody com.ecommerce.user_service.dto.request.UpdateUserRequest request) {
+        return ResponseEntity.ok(userService.updateUser(id, request));
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> deleteUser(@org.springframework.web.bind.annotation.PathVariable String id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }

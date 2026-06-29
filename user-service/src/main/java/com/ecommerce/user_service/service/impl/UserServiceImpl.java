@@ -22,6 +22,30 @@ public class UserServiceImpl implements UserService {
         return mapToResponse(user);
     }
 
+    @Override
+    public UserResponse updateUser(String id, com.ecommerce.user_service.dto.request.UpdateUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        user.setFirstName(request.getFirstName());
+        user.setLastName(request.getLastName());
+        user = userRepository.save(user);
+        return mapToResponse(user);
+    }
+
+    @Override
+    public void deleteUser(String id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        userRepository.delete(user);
+    }
+
+    @Override
+    public java.util.List<UserResponse> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
+    }
+
     private UserResponse mapToResponse(User user) {
         return UserResponse.builder()
                 .id(user.getId())
