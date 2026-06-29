@@ -134,6 +134,24 @@
                             ]
                         }
                     }
+                },
+                {
+                    "name": "Update Product",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/products/{{productId}}",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "products",
+                                "{{productId}}"
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -205,6 +223,44 @@
                                 "v1",
                                 "carts",
                                 "{{sessionId}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Item Quantity",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{cartId}}/items/{{itemId}}",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{cartId}}",
+                                "items",
+                                "{{itemId}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Clear Cart",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{cartServiceUrl}}/api/v1/carts/{{cartId}}",
+                            "host": [
+                                "{{cartServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "carts",
+                                "{{cartId}}"
                             ]
                         }
                     }
@@ -299,6 +355,41 @@
                             ]
                         }
                     }
+                },
+                {
+                    "name": "Get All Orders",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{orderServiceUrl}}/api/v1/orders",
+                            "host": [
+                                "{{orderServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "orders"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Order",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "{{orderServiceUrl}}/api/v1/orders/{{orderId}}",
+                            "host": [
+                                "{{orderServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "orders",
+                                "{{orderId}}"
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -324,6 +415,24 @@
                             ]
                         }
                     }
+                },
+                {
+                    "name": "Get Payment By Id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{paymentServiceUrl}}/api/v1/payments/{{paymentId}}",
+                            "host": [
+                                "{{paymentServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "payments",
+                                "{{paymentId}}"
+                            ]
+                        }
+                    }
                 }
             ]
         },
@@ -346,6 +455,24 @@
                                 "notifications",
                                 "order",
                                 "{{orderId}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Notification By Id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{notificationServiceUrl}}/api/v1/notifications/{{notificationId}}",
+                            "host": [
+                                "{{notificationServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "notifications",
+                                "{{notificationId}}"
                             ]
                         }
                     }
