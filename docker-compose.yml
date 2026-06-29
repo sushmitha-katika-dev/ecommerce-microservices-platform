@@ -10,6 +10,32 @@ volumes:
   kafka_data:
 
 services:
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin
+    networks:
+      - ecommerce-network
+    ports:
+      - "9411:9411"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost:9411/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    networks:
+      - ecommerce-network
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.4
     container_name: zookeeper

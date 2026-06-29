@@ -40,9 +40,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(RouteConstants.PUBLIC_ROUTES).permitAll()
                 .requestMatchers(HttpMethod.GET, RouteConstants.PRODUCT_ROUTES).permitAll()
-                .requestMatchers(HttpMethod.POST, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.PUT, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
-                .requestMatchers(HttpMethod.DELETE, RouteConstants.PRODUCT_ROUTES).hasAuthority("ADMIN")
+                .requestMatchers(HttpMethod.POST, RouteConstants.PRODUCT_ROUTES).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, RouteConstants.PRODUCT_ROUTES).hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, RouteConstants.PRODUCT_ROUTES).hasRole("ADMIN")
                 .requestMatchers(RouteConstants.PROTECTED_ROUTES).authenticated()
                 .anyRequest().authenticated()
             );

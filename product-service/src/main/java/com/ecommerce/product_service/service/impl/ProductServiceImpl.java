@@ -12,6 +12,8 @@ import com.ecommerce.product_service.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CacheEvict;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,7 @@ public class ProductServiceImpl implements ProductService {
 
         @Override
         @Transactional(readOnly = true)
+        @Cacheable(value = "products")
         public List<ProductResponse> getAllProducts() {
                 return productRepository.findAll().stream()
                                 .map(this::mapToResponse)
@@ -35,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
         @Override
         @Transactional(readOnly = true)
+        @Cacheable(value = "product", key = "#id")
         public ProductResponse getProductById(String id) {
                 Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
@@ -43,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
         @Override
         @Transactional
+        @CacheEvict(value = {"products", "product"}, allEntries = true)
         public ProductResponse createProduct(ProductRequest request) {
                 if (productRepository.existsBySku(request.getSku())) {
                         throw new DuplicateResourceException("Product with SKU already exists: " + request.getSku());
@@ -82,6 +87,7 @@ public class ProductServiceImpl implements ProductService {
 
         @Override
         @Transactional
+        @CacheEvict(value = {"products", "product"}, allEntries = true)
         public void deleteProduct(String id) {
                 Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
@@ -98,6 +104,7 @@ public class ProductServiceImpl implements ProductService {
 
         @Override
         @Transactional
+        @CacheEvict(value = {"products", "product"}, allEntries = true)
         public ProductResponse updateProduct(String id, ProductRequest request) {
                 Product product = productRepository.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));

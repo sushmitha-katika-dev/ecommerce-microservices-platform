@@ -37,6 +37,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
+    @io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker(name = "productService", fallbackMethod = "addItemFallback")
     public CartResponse addItem(String sessionId, CartItemRequest request) {
         Cart cart = getOrCreateCart(sessionId);
 
@@ -160,5 +161,9 @@ public class CartServiceImpl implements CartService {
                 .items(itemResponses)
                 .totalAmount(total)
                 .build();
+    }
+
+    public CartResponse addItemFallback(String sessionId, CartItemRequest request, Throwable t) {
+        throw new ProductValidationException("Product Service is currently overloaded or down. Circuit Breaker is OPEN. Please try adding to cart later. Cause: " + t.getMessage());
     }
 }

@@ -31,3 +31,24 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+
+
+resilience4j.circuitbreaker:
+  instances:
+    productService:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 3
+      slidingWindowType: COUNT_BASED
+      minimumNumberOfCalls: 5
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 50

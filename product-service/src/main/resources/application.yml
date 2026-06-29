@@ -4,6 +4,12 @@ server:
 spring:
   application:
     name: product-service
+  cache:
+    type: redis
+  data:
+    redis:
+      host: redis
+      port: 6379
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/ecommerce_product_db?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
     username: root
@@ -36,3 +42,13 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      endpoint: http://zipkin:9411/api/v2/spans
+

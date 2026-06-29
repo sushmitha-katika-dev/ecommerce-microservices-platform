@@ -10,14 +10,20 @@ Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repo
 - **Event-Driven Choreography**: Asynchronous operations utilizing Apache Kafka (`order-created`, `payment-completed`).
 - **Database-per-Service**: Complete data isolation. Each microservice governs its own MySQL instance.
 - **Security**: Robust stateless session management using JWT and Spring Security RBAC.
+- **High-Performance Caching**: Redis caching layer implemented in the Product Service to drastically reduce database load.
+- **Fault Tolerance**: Resilience4J Circuit Breakers prevent cascading failures during inter-service communication.
+- **Distributed Tracing**: Full observability using Micrometer and Zipkin to trace requests across the entire microservice web.
+- **Continuous Integration**: Automated GitHub Actions CI/CD pipeline for Maven builds and testing.
 - **User Profiles**: Comprehensive user registration with phone, gender, and full address support.
 - **Product Taxonomy**: Hierarchical category management and integrated inventory tracking.
 
 ## 🛠️ Tech Stack
 - **Backend Core**: Java 17, Spring Boot 3.x, Spring Cloud Gateway
 - **Data & Messaging**: MySQL, Spring Data JPA, Hibernate, Apache Kafka
+- **Caching & Resilience**: Redis, Spring Data Redis, Resilience4J Circuit Breaker
+- **Observability**: Micrometer Tracing, Zipkin
 - **Security**: Spring Security, JWT (JSON Web Tokens)
-- **Deployment & DevOps**: Docker, Docker Compose, Maven
+- **Deployment & DevOps**: Docker, Docker Compose, Maven, GitHub Actions (CI/CD)
 - **Testing**: Postman Integration Suite, JUnit 5, Mockito
 
 ## 📁 Project Structure
@@ -88,10 +94,8 @@ We provide a complete automated testing suite inside the `postman/` directory.
 Read the full [Postman Testing Guide](postman/README.md).
 
 ## 🔮 Future Improvements
-- Implement comprehensive unit and integration testing workflows in CI/CD.
 - Add an ELK Stack (Elasticsearch, Logstash, Kibana) for centralized logging.
 - Migrate from Docker Compose to a local Kubernetes (Minikube) deployment cluster.
-- Implement Circuit Breakers (Resilience4J) for fault tolerance between internal HTTP calls.
 
 ## 📄 License
 This project is licensed under the MIT Lic.

@@ -77,6 +77,7 @@ public class AuthServiceImpl implements AuthService {
         }
 
         @Override
+        @Transactional(readOnly = true)
         public AuthResponse login(LoginRequest request) {
                 authenticationManager.authenticate(
                                 new UsernamePasswordAuthenticationToken(

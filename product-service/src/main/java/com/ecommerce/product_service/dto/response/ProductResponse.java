@@ -9,11 +9,13 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductResponse {
+public class ProductResponse implements Serializable {
     private String id;
     private String categoryId;
     private String name;
