@@ -14,4 +14,6 @@ public interface NotificationService {
     List<NotificationResponse> getAllNotifications();
 
     List<NotificationResponse> getNotificationsByOrderId(String orderId);
+
+    NotificationResponse getNotificationById(String id);
 }

@@ -110,4 +110,12 @@ public class PaymentServiceImpl implements PaymentService {
                 .map(paymentMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public PaymentResponse getPaymentById(String id) {
+        Payment payment = paymentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Payment not found"));
+        return paymentMapper.toResponse(payment);
+    }
 }

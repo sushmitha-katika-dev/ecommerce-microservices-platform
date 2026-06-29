@@ -13,4 +13,6 @@ public interface PaymentService {
     List<PaymentResponse> getPaymentsByOrderId(String orderId);
 
     List<PaymentResponse> getPaymentsByUserId(String userId);
+
+    PaymentResponse getPaymentById(String id);
 }

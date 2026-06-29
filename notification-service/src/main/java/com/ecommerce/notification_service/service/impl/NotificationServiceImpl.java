@@ -61,4 +61,11 @@ public class NotificationServiceImpl implements NotificationService {
                 .map(notificationMapper::toResponse)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public NotificationResponse getNotificationById(String id) {
+        NotificationLog notification = notificationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
+        return notificationMapper.toResponse(notification);
+    }
 }

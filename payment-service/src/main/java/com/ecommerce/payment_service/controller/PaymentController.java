@@ -33,4 +33,9 @@ public class PaymentController {
     public ResponseEntity<List<PaymentResponse>> getPaymentsByUserId(@PathVariable String userId) {
         return ResponseEntity.ok(paymentService.getPaymentsByUserId(userId));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PaymentResponse> getPaymentById(@PathVariable String id) {
+        return ResponseEntity.ok(paymentService.getPaymentById(id));
+    }
 }

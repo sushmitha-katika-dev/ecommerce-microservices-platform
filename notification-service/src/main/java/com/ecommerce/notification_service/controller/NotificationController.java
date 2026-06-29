@@ -27,4 +27,9 @@ public class NotificationController {
     public ResponseEntity<List<NotificationResponse>> getNotificationLogsByOrderId(@PathVariable String orderId) {
         return ResponseEntity.ok(notificationService.getNotificationsByOrderId(orderId));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<NotificationResponse> getNotificationById(@PathVariable String id) {
+        return ResponseEntity.ok(notificationService.getNotificationById(id));
+    }
 }
