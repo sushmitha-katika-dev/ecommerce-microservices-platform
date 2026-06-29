@@ -33,5 +33,5 @@ public class ProductRequest {
     private BigDecimal price;
 
     @Builder.Default
-    private boolean active = true;
+    private Boolean active = true;
 }

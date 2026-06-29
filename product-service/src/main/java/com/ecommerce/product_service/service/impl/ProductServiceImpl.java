@@ -57,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
                                 .sku(request.getSku())
                                 .description(request.getDescription())
                                 .price(request.getPrice())
-                                .active(request.isActive())
+                                .active(request.getActive() != null ? request.getActive() : true)
                                 .build();
 
                 Product savedProduct = productRepository.save(product);
@@ -108,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
                 product.setName(request.getName());
                 product.setDescription(request.getDescription());
                 product.setPrice(request.getPrice());
-                product.setActive(request.isActive());
+                product.setActive(request.getActive() != null ? request.getActive() : true);
                 product.setCategory(category);
                 // Not updating SKU as it should be immutable, or update it if required. Let's update it if it's different and doesn't exist.
                 if (!product.getSku().equals(request.getSku())) {

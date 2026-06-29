@@ -19,6 +19,9 @@ public class UserResponse {
     private String lastName;
     private String status;
     private Set<String> roles;
+    private String phoneNumber;
+    private String gender;
+    private java.util.List<AddressResponse> addresses;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

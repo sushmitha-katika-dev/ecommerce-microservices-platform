@@ -6,6 +6,8 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     first_name VARCHAR(100),
     last_name VARCHAR(100),
+    phone_number VARCHAR(20),
+    gender VARCHAR(20),
     status VARCHAR(20) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -58,3 +60,13 @@ CREATE TABLE refresh_tokens (
 );
 
 CREATE INDEX idx_refresh_token_user ON refresh_tokens(user_id);
+
+-- Seed Data
+INSERT INTO roles (id, name) VALUES ('role-admin-id', 'ADMIN');
+INSERT INTO roles (id, name) VALUES ('role-customer-id', 'CUSTOMER');
+
+-- Password is 'admin123' (bcrypt encoded)
+INSERT INTO users (id, email, password_hash, first_name, last_name, status, phone_number, gender) 
+VALUES ('user-admin-id', 'admin@ecommerce.com', '$2a$10$7O4Yl1b5Tf1O1E.B2A5t5.2n8C4z4A6K.D7L8M9N0P1Q2R3S4T5U6', 'Super', 'Admin', 'ACTIVE', '1234567890', 'MALE');
+
+INSERT INTO user_roles (user_id, role_id) VALUES ('user-admin-id', 'role-admin-id');

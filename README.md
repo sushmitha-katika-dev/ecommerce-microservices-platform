@@ -10,6 +10,8 @@ Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repo
 - **Event-Driven Choreography**: Asynchronous operations utilizing Apache Kafka (`order-created`, `payment-completed`).
 - **Database-per-Service**: Complete data isolation. Each microservice governs its own MySQL instance.
 - **Security**: Robust stateless session management using JWT and Spring Security RBAC.
+- **User Profiles**: Comprehensive user registration with phone, gender, and full address support.
+- **Product Taxonomy**: Hierarchical category management and integrated inventory tracking.
 
 ## 🛠️ Tech Stack
 - **Backend Core**: Java 17, Spring Boot 3.x, Spring Cloud Gateway

@@ -20,7 +20,7 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\"\n}"
+                            "raw": "{\n    \"firstName\": \"Sushmitha\",\n    \"lastName\": \"Katika\",\n    \"email\": \"katika@example.com\",\n    \"password\": \"password123\",\n    \"phoneNumber\": \"9876543210\",\n    \"gender\": \"FEMALE\",\n    \"addresses\": [\n        {\n            \"type\": \"SHIPPING\",\n            \"street\": \"123 Main St\",\n            \"city\": \"Techville\",\n            \"state\": \"CA\",\n            \"zipCode\": \"90210\",\n            \"country\": \"USA\"\n        }\n    ]\n}\n"
                         },
                         "url": {
                             "raw": "{{userServiceUrl}}/api/users/auth/register",
@@ -597,6 +597,176 @@
                                 "v1",
                                 "orders",
                                 "invalid-order-id"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Category",
+            "item": [
+                {
+                    "name": "Create Category",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Electronics\",\n    \"slug\": \"electronics\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/categories",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get All Categories",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/categories",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Category By Id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/categories/{{categoryId}}",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories",
+                                "{{categoryId}}"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Sub-Category",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"name\": \"Laptops\",\n    \"slug\": \"laptops\",\n    \"parentId\": \"{{categoryId}}\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/categories",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "categories"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Inventory",
+            "item": [
+                {
+                    "name": "Update Inventory",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"productId\": \"{{productId}}\",\n    \"quantity\": 50\n}"
+                        },
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/inventory",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "inventory"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Available Quantity",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/inventory/{{productId}}/available",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "inventory",
+                                "{{productId}}",
+                                "available"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Reserve Inventory",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "{{productServiceUrl}}/api/v1/inventory/{{productId}}/reserve?quantity=1",
+                            "host": [
+                                "{{productServiceUrl}}"
+                            ],
+                            "path": [
+                                "api",
+                                "v1",
+                                "inventory",
+                                "{{productId}}",
+                                "reserve"
+                            ],
+                            "query": [
+                                {
+                                    "key": "quantity",
+                                    "value": "1"
+                                }
                             ]
                         }
                     }
