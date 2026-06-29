@@ -7,9 +7,10 @@ public final class RouteConstants {
     }
 
     public static final String[] PUBLIC_ROUTES = {
-            "/api/users/login",
-            "/api/users/register",
+            "/api/users/auth/login",
+            "/api/users/auth/register",
             "/v3/api-docs/**",
+            "/api/*/v3/api-docs",
             "/swagger-ui/**",
             "/swagger-ui.html"
     };
