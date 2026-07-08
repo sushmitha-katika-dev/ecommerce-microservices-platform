@@ -80,10 +80,12 @@ mvn spring-boot:run -pl user-service
 ```
 
 ## 🐳 Docker Setup
-Every microservice includes a standardized `Dockerfile`. To containerize the entire platform:
-1. Ensure `mvn clean install` has generated the `.jar` files in each target directory.
-2. Build the images: `docker build -t user-service ./user-service`
-3. (Future Improvement) A comprehensive `docker-compose.prod.yml` can be created to deploy the `.jar` artifacts alongside the infrastructure.
+The entire platform, including all microservices, the API Gateway, and the infrastructure (MySQL, Kafka, Zookeeper, Zipkin, Redis, and ELK stack), is fully containerized.
+1. Start the entire environment with a single command:
+```bash
+docker-compose up -d --build
+```
+This will automatically build the images for all services and launch them alongside the required infrastructure.
 
 ## 🧪 Testing with Postman
 We provide a complete automated testing suite inside the `postman/` directory.
@@ -94,8 +96,8 @@ We provide a complete automated testing suite inside the `postman/` directory.
 Read the full [Postman Testing Guide](postman/README.md).
 
 ## 🔮 Future Improvements
-- Add an ELK Stack (Elasticsearch, Logstash, Kibana) for centralized logging.
 - Migrate from Docker Compose to a local Kubernetes (Minikube) deployment cluster.
+- Integrate a frontend framework (e.g., React or Angular) to consume the APIs.
 
 ## 📄 License
 This project is licensed under the MIT Lic.
