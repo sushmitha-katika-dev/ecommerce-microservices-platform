@@ -7,7 +7,7 @@ public final class RouteConstants {
     }
 
     public static final String[] PUBLIC_ROUTES = {
-            "/api/users/auth/login",
+            "/api/users/auth/login", "/actuator/**",
             "/api/users/auth/register",
             "/v3/api-docs/**",
             "/api/*/v3/api-docs",

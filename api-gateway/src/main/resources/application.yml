@@ -6,14 +6,14 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      mvc:
-        routes:
+
+      routes:
         - id: user-service-docs
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
             - Path=/api/users/v3/api-docs
           filters:
-            - RewritePath=/api/users/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: user-service
           uri: ${USER_SERVICE_URL:http://localhost:8081}
           predicates:
@@ -23,7 +23,7 @@ spring:
           predicates:
             - Path=/api/products/v3/api-docs
           filters:
-            - RewritePath=/api/products/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: product-service
           uri: ${PRODUCT_SERVICE_URL:http://localhost:8082}
           predicates:
@@ -33,7 +33,7 @@ spring:
           predicates:
             - Path=/api/carts/v3/api-docs
           filters:
-            - RewritePath=/api/carts/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: cart-service
           uri: ${CART_SERVICE_URL:http://localhost:8083}
           predicates:
@@ -43,7 +43,7 @@ spring:
           predicates:
             - Path=/api/orders/v3/api-docs
           filters:
-            - RewritePath=/api/orders/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: order-service
           uri: ${ORDER_SERVICE_URL:http://localhost:8084}
           predicates:
@@ -53,7 +53,7 @@ spring:
           predicates:
             - Path=/api/payments/v3/api-docs
           filters:
-            - RewritePath=/api/payments/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: payment-service
           uri: ${PAYMENT_SERVICE_URL:http://localhost:8085}
           predicates:
@@ -63,7 +63,7 @@ spring:
           predicates:
             - Path=/api/notifications/v3/api-docs
           filters:
-            - RewritePath=/api/notifications/v3/api-docs, /v3/api-docs
+            - SetPath=/v3/api-docs
         - id: notification-service
           uri: ${NOTIFICATION_SERVICE_URL:http://localhost:8086}
           predicates:
