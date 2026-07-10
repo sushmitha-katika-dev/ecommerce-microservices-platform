@@ -6,7 +6,7 @@ Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repo
 
 ## 🚀 Features
 - **Strict Microservices Architecture**: Separation of concerns with dedicated domains (User, Product, Cart, Order, Payment, Notification).
-- **API Gateway**: Single entry point handling routing, CORS, and centralized JWT authorization.
+- **API Gateway**: Single entry point handling routing (with `/api/v1/` prefixing), CORS, header forwarding (for internal Docker hostnames), and centralized JWT authorization.
 - **Event-Driven Choreography**: Asynchronous operations utilizing Apache Kafka (`order-created`, `payment-completed`).
 - **Database-per-Service**: Complete data isolation. Each microservice governs its own MySQL instance.
 - **Security**: Robust stateless session management using JWT and Spring Security RBAC.
@@ -92,7 +92,8 @@ We provide a complete automated testing suite inside the `postman/` directory.
 1. Import `postman_collection.json` and `postman_environment.json` into Postman.
 2. Select the **E-Commerce Local Env** environment.
 3. Run the **Authentication > Login** request to automatically seed the `{{jwtToken}}` variable.
-4. Execute the entire collection to simulate end-to-end user flows!
+4. Execute the collection to simulate end-to-end user flows!
+   - *Note:* The Cart Service `checkout` endpoint acts asynchronously via Kafka, whereas the Order Service `place-order` endpoint acts synchronously.
 Read the full [Postman Testing Guide](postman/README.md).
 
 ## 🔮 Future Improvements
