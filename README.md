@@ -2,8 +2,40 @@
 
 Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repository showcases a highly decoupled, scalable, and event-driven backend architecture using Java Spring Boot.
 
+## 📖 Deep-Dive Architecture & Project Guide
+For a deep dive into how we orchestrated the Database-per-service pattern, implemented stateless JWT security at the Gateway level, and choreographed asynchronous Kafka events:
 
+👉 **[Read the comprehensive E-Commerce Project Guide](PROJECT_GUIDE.md)**!
 
+## 🏛 Architecture Diagram
+
+```mermaid
+graph TD
+    Client([Client / Postman]) -->|HTTP / JWT| Gateway[API Gateway :8080]
+    
+    Gateway -->|/api/v1/users| UserSvc[User Service]
+    Gateway -->|/api/v1/products| ProdSvc[Product Service]
+    Gateway -->|/api/v1/carts| CartSvc[Cart Service]
+    Gateway -->|/api/v1/orders| OrderSvc[Order Service]
+    Gateway -->|/api/v1/payments| PaySvc[Payment Service]
+    Gateway -->|/api/v1/notifications| NotifSvc[Notification Service]
+    
+    UserSvc -.-> DB1[(MySQL: Users)]
+    ProdSvc -.-> DB2[(MySQL: Products)]
+    ProdSvc -.-> Redis[(Redis Cache)]
+    CartSvc -.-> DB3[(MySQL: Carts)]
+    OrderSvc -.-> DB4[(MySQL: Orders)]
+    PaySvc -.-> DB5[(MySQL: Payments)]
+    
+    CartSvc == Async ==>|order-checkout| Kafka{{Apache Kafka}}
+    Kafka == Async ==> OrderSvc
+    OrderSvc == Async ==>|order-created| Kafka
+    Kafka == Async ==> PaySvc
+    PaySvc == Async ==>|payment-completed| Kafka
+    Kafka == Async ==> NotifSvc
+```
+
+---
 ## 🚀 Features
 - **Strict Microservices Architecture**: Separation of concerns with dedicated domains (User, Product, Cart, Order, Payment, Notification).
 - **API Gateway**: Single entry point handling routing, CORS, and centralized JWT authorization.
@@ -93,6 +125,10 @@ We provide a complete automated testing suite inside the `postman/` directory.
 2. Select the **E-Commerce Local Env** environment.
 3. Run the **Authentication > Login** request to automatically seed the `{{jwtToken}}` variable.
 4. Execute the entire collection to simulate end-to-end user flows!
+
+### Successful Postman Login Output
+![User Login](docs/screenshots/system/06-user-login-jwt-token.png)
+
 Read the full [Postman Testing Guide](postman/README.md).
 
 ## 🔮 Future Improvements
