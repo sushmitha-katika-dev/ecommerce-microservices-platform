@@ -136,7 +136,7 @@ Read the full [Postman Testing Guide](postman/README.md).
 - Integrate a frontend framework (e.g., React or Angular) to consume the APIs.
 
 ## 📄 License
-This project is licensed under the MIT Lic.
+This project is licensed under the MIT License.
 
 ## ✍️ Author
 Designed and developed by **Sushmitha Katika**.
