@@ -173,37 +173,97 @@ Execute the collection in order.
 Below are the successful execution results of all APIs across the microservices, proving end-to-end functionality.
 
 #### User Service
-![Register User](docs/screenshots/postman/user-service/register-user.png)
-![Login Customer](docs/screenshots/postman/user-service/login-customer.png)
+The User Service acts as the identity provider, generating secure JWTs and managing user profiles.
+
+<details>
+<summary><b>Register User</b></summary>
+Registers a new customer profile into the `ecommerce_user_db`.
+<br><br>
+<img src="docs/screenshots/postman/user-service/register-user.png" alt="Register User">
+</details>
+
+<details>
+<summary><b>Login Customer</b></summary>
+Authenticates user credentials and issues a signed JWT containing role-based claims.
+<br><br>
+<img src="docs/screenshots/postman/user-service/login-customer.png" alt="Login Customer">
+</details>
 
 #### Product Service
-![Create Category](docs/screenshots/postman/product-service/create-category.png)
-![Create Sub-Category](docs/screenshots/postman/product-service/create-sub-category.png)
-![Get All Categories](docs/screenshots/postman/product-service/get-all-categories.png)
-![Get Category By ID](docs/screenshots/postman/product-service/get-category-by-id.png)
-![Create Products](docs/screenshots/postman/product-service/create-products.png)
-![List Products](docs/screenshots/postman/product-service/list-products.png)
-![Update Product](docs/screenshots/postman/product-service/update-product.png)
+The Product Service handles the catalog hierarchy and utilizes Redis for high-speed retrieval.
+
+<details>
+<summary><b>Create Category & Sub-Category</b></summary>
+Establishes the product hierarchy (e.g., Electronics -> Laptops).
+<br><br>
+<img src="docs/screenshots/postman/product-service/create-category.png" alt="Create Category">
+<br><br>
+<img src="docs/screenshots/postman/product-service/create-sub-category.png" alt="Create Sub-Category">
+</details>
+
+<details>
+<summary><b>Product Management (Create, Update, List)</b></summary>
+Demonstrates full CRUD operations on the product catalog, automatically invalidating Redis caches upon updates.
+<br><br>
+<img src="docs/screenshots/postman/product-service/create-products.png" alt="Create Products">
+<br><br>
+<img src="docs/screenshots/postman/product-service/update-product.png" alt="Update Product">
+<br><br>
+<img src="docs/screenshots/postman/product-service/list-products.png" alt="List Products">
+</details>
 
 #### Cart Service
-![Add To Cart](docs/screenshots/postman/cart-service/add-to-cart.png)
-![View Cart](docs/screenshots/postman/cart-service/view-cart.png)
-![Update Item Quantity](docs/screenshots/postman/cart-service/update-item-quantity.png)
-![Remove Cart Item](docs/screenshots/postman/cart-service/remove-cart-item.png)
-![Checkout Order](docs/screenshots/postman/cart-service/checkout-order.png)
-![Clear Cart](docs/screenshots/postman/cart-service/clear-cart.png)
+The Cart Service provides ephemeral storage for active shopping sessions.
+
+<details>
+<summary><b>Cart Operations (Add, View, Update, Remove)</b></summary>
+Demonstrates adding products, modifying quantities, and viewing the aggregated cart totals.
+<br><br>
+<img src="docs/screenshots/postman/cart-service/add-to-cart.png" alt="Add To Cart">
+<br><br>
+<img src="docs/screenshots/postman/cart-service/update-item-quantity.png" alt="Update Item Quantity">
+<br><br>
+<img src="docs/screenshots/postman/cart-service/view-cart.png" alt="View Cart">
+</details>
+
+<details>
+<summary><b>Checkout Order (Asynchronous Trigger)</b></summary>
+Initiates the checkout process. Returns a `202 Accepted` and fires an `order-checkout` Kafka event to the downstream services.
+<br><br>
+<img src="docs/screenshots/postman/cart-service/checkout-order.png" alt="Checkout Order">
+</details>
 
 #### Order Service (Async via Kafka)
-![Get All Orders](docs/screenshots/postman/order-service/get-all-orders.png)
-![Place Order](docs/screenshots/postman/order-service/place-order.png)
+Listens for checkout events to permanently record orders.
+
+<details>
+<summary><b>Verify Order Creation</b></summary>
+Proves that the Order Service successfully consumed the Kafka event and created the order asynchronously.
+<br><br>
+<img src="docs/screenshots/postman/order-service/get-all-orders.png" alt="Get All Orders">
+<br><br>
+<img src="docs/screenshots/postman/order-service/place-order.png" alt="Place Order">
+</details>
 
 #### Payment Service (Async via Kafka)
-![Get Payment By ID](docs/screenshots/postman/payment-service/get-payment-by-id.png)
-![View Payment History](docs/screenshots/postman/payment-service/view-payment-history.png)
+Listens for order creation events to process mock financial transactions.
+
+<details>
+<summary><b>Verify Payment Processing</b></summary>
+Proves the Payment Service consumed the `order-created` event, mocked a payment, and saved the transaction record.
+<br><br>
+<img src="docs/screenshots/postman/payment-service/view-payment-history.png" alt="View Payment History">
+</details>
 
 #### Notification Service (Async via Kafka)
-![Get Notification By ID](docs/screenshots/postman/notification-service/get-notification-by-id.png)
-![Verify Notification](docs/screenshots/postman/notification-service/verify-notification.png)
+A stateless worker that listens for both order and payment events to send alerts.
+
+<details>
+<summary><b>Verify Notification Dispatch</b></summary>
+Proves the Notification Service successfully consumed events and dispatched simulated Email/SMS alerts to the customer.
+<br><br>
+<img src="docs/screenshots/postman/notification-service/get-notification-by-id.png" alt="Get Notification">
+</details>
 
 ---
 
