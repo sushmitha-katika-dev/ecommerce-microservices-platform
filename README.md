@@ -27,18 +27,18 @@ graph TD
     OrderSvc -.-> DB4[(MySQL: Orders)]
     PaySvc -.-> DB5[(MySQL: Payments)]
     
-    CartSvc == Async ==>|order-checkout| Kafka{{Apache Kafka}}
-    Kafka == Async ==> OrderSvc
-    OrderSvc == Async ==>|order-created| Kafka
-    Kafka == Async ==> PaySvc
-    PaySvc == Async ==>|payment-completed| Kafka
-    Kafka == Async ==> NotifSvc
+    CartSvc -.->|Async: order-checkout| Kafka{{Apache Kafka}}
+    Kafka -.->|Async| OrderSvc
+    OrderSvc -.->|Async: order-created| Kafka
+    Kafka -.->|Async| PaySvc
+    PaySvc -.->|Async: payment-completed| Kafka
+    Kafka -.->|Async| NotifSvc
 ```
 
 ---
 ## 🚀 Features
 - **Strict Microservices Architecture**: Separation of concerns with dedicated domains (User, Product, Cart, Order, Payment, Notification).
-- **API Gateway**: Single entry point handling routing, CORS, and centralized JWT authorization.
+- **API Gateway**: Single entry point handling routing (with `/api/v1/` prefixing), CORS, header forwarding (for internal Docker hostnames), and centralized JWT authorization.
 - **Event-Driven Choreography**: Asynchronous operations utilizing Apache Kafka (`order-created`, `payment-completed`).
 - **Database-per-Service**: Complete data isolation. Each microservice governs its own MySQL instance.
 - **Security**: Robust stateless session management using JWT and Spring Security RBAC.
