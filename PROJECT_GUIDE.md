@@ -168,6 +168,43 @@ We provide a complete automated testing suite inside the `postman/` directory.
 Execute the collection in order. 
 *Note:* The Cart Service `checkout` endpoint operates **asynchronously**. When you check out a cart, you will immediately receive a 202 Accepted. The Order, Payment, and Notification services will process the rest of the flow in the background via Kafka!
 
+### Comprehensive Postman Test Results
+
+Below are the successful execution results of all APIs across the microservices, proving end-to-end functionality.
+
+#### User Service
+![Register User](docs/screenshots/postman/user-service/register-user.png)
+![Login Customer](docs/screenshots/postman/user-service/login-customer.png)
+
+#### Product Service
+![Create Category](docs/screenshots/postman/product-service/create-category.png)
+![Create Sub-Category](docs/screenshots/postman/product-service/create-sub-category.png)
+![Get All Categories](docs/screenshots/postman/product-service/get-all-categories.png)
+![Get Category By ID](docs/screenshots/postman/product-service/get-category-by-id.png)
+![Create Products](docs/screenshots/postman/product-service/create-products.png)
+![List Products](docs/screenshots/postman/product-service/list-products.png)
+![Update Product](docs/screenshots/postman/product-service/update-product.png)
+
+#### Cart Service
+![Add To Cart](docs/screenshots/postman/cart-service/add-to-cart.png)
+![View Cart](docs/screenshots/postman/cart-service/view-cart.png)
+![Update Item Quantity](docs/screenshots/postman/cart-service/update-item-quantity.png)
+![Remove Cart Item](docs/screenshots/postman/cart-service/remove-cart-item.png)
+![Checkout Order](docs/screenshots/postman/cart-service/checkout-order.png)
+![Clear Cart](docs/screenshots/postman/cart-service/clear-cart.png)
+
+#### Order Service (Async via Kafka)
+![Get All Orders](docs/screenshots/postman/order-service/get-all-orders.png)
+![Place Order](docs/screenshots/postman/order-service/place-order.png)
+
+#### Payment Service (Async via Kafka)
+![Get Payment By ID](docs/screenshots/postman/payment-service/get-payment-by-id.png)
+![View Payment History](docs/screenshots/postman/payment-service/view-payment-history.png)
+
+#### Notification Service (Async via Kafka)
+![Get Notification By ID](docs/screenshots/postman/notification-service/get-notification-by-id.png)
+![Verify Notification](docs/screenshots/postman/notification-service/verify-notification.png)
+
 ---
 
 ## 🔍 Runtime Verification & Results
