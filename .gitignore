@@ -51,3 +51,9 @@ build/
 
 # Custom
 scratch/
+
+# Private Portfolio Assets (Hidden from GitHub)
+FINAL_EVIDENCE_AUDIT.md
+PORTFOLIO_DEMO.md
+RESUME_AUDIT_REPORT.md
+RESUME_UPDATED.md
