@@ -2,17 +2,11 @@
 
 Welcome to the **E-Commerce Microservices Platform**! This enterprise-grade repository showcases a highly decoupled, scalable, and event-driven backend architecture using Java Spring Boot.
 
-![Docker Desktop Running](docs/screenshots/system/01-docker-desktop-running.png)
 
-## 📖 Deep-Dive Architecture & Project Guide
-For a deep dive into how we orchestrated the Database-per-service pattern, implemented stateless JWT security at the Gateway level, and choreographed asynchronous Kafka events:
 
-👉 **[Read the comprehensive E-Commerce Project Guide](PROJECT_GUIDE.md)**!
-
----
 ## 🚀 Features
 - **Strict Microservices Architecture**: Separation of concerns with dedicated domains (User, Product, Cart, Order, Payment, Notification).
-- **API Gateway**: Single entry point handling routing (with `/api/v1/` prefixing), CORS, header forwarding (for internal Docker hostnames), and centralized JWT authorization.
+- **API Gateway**: Single entry point handling routing, CORS, and centralized JWT authorization.
 - **Event-Driven Choreography**: Asynchronous operations utilizing Apache Kafka (`order-created`, `payment-completed`).
 - **Database-per-Service**: Complete data isolation. Each microservice governs its own MySQL instance.
 - **Security**: Robust stateless session management using JWT and Spring Security RBAC.
@@ -70,7 +64,6 @@ Our platform features an extensive `docs/` suite covering component interactions
 ```bash
 docker-compose up -d
 ```
-![Docker Compose Healthy](docs/screenshots/system/02-docker-compose-healthy.png)
 
 ### 2. Build Microservices
 The project includes a parent POM for convenient 1-click building.
@@ -99,9 +92,7 @@ We provide a complete automated testing suite inside the `postman/` directory.
 1. Import `postman_collection.json` and `postman_environment.json` into Postman.
 2. Select the **E-Commerce Local Env** environment.
 3. Run the **Authentication > Login** request to automatically seed the `{{jwtToken}}` variable.
-![User Login](docs/screenshots/system/06-user-login-jwt-token.png)
-4. Execute the collection to simulate end-to-end user flows!
-   - *Note:* The Cart Service `checkout` endpoint acts asynchronously via Kafka, whereas the Order Service `place-order` endpoint acts synchronously.
+4. Execute the entire collection to simulate end-to-end user flows!
 Read the full [Postman Testing Guide](postman/README.md).
 
 ## 🔮 Future Improvements
