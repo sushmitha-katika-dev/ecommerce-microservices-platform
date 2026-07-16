@@ -51,6 +51,7 @@ build/
 
 # Custom
 scratch/
+frontend/
 
 # Private Portfolio Assets (Hidden from GitHub)
 FINAL_EVIDENCE_AUDIT.md
