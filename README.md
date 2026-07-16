@@ -9,7 +9,7 @@ For a deep dive into how we orchestrated the Database-per-service pattern, imple
 
 ## 🏛 Architecture Diagram
 
-![E-Commerce Microservices Architecture](docs/diagrams/architecture.svg)
+<img src="./docs/diagrams/architecture.svg" alt="E-Commerce Microservices Architecture" width="100%">
 
 ```mermaid
 graph TD
