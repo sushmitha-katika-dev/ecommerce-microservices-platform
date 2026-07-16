@@ -9,6 +9,8 @@ For a deep dive into how we orchestrated the Database-per-service pattern, imple
 
 ## 🏛 Architecture Diagram
 
+![E-Commerce Microservices Architecture](docs/diagrams/architecture.svg)
+
 ```mermaid
 graph TD
     Client([Client / Postman]) -->|HTTP / JWT| Gateway[API Gateway :8080]
