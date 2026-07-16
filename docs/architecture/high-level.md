@@ -4,6 +4,8 @@ This document illustrates the macro-level architecture of the E-Commerce platfor
 
 ## System Diagram
 
+![High-Level System Architecture](../diagrams/architecture.svg)
+
 ```mermaid
 graph TD
     %% Entities
